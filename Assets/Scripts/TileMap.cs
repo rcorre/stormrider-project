@@ -51,12 +51,12 @@ public class TileMap : MonoBehaviour {
                 int triIdx = tileIdx * 6;
                 int vertOffset = z * numVerticesX + x;
                 triangles[triIdx + 0] = vertOffset + 0;
-                triangles[triIdx + 1] = vertOffset + numVerticesX + 1;
-                triangles[triIdx + 2] = vertOffset + numVerticesX + 0;
+                triangles[triIdx + 2] = vertOffset + numVerticesX + 1;
+                triangles[triIdx + 1] = vertOffset + numVerticesX + 0;
 
                 triangles[triIdx + 3] = vertOffset + 0;
-                triangles[triIdx + 4] = vertOffset + 1;
-                triangles[triIdx + 5] = vertOffset + numVerticesX + 1;
+                triangles[triIdx + 5] = vertOffset + 1;
+                triangles[triIdx + 4] = vertOffset + numVerticesX + 1;
             }
         }
 
