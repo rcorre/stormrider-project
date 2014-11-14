@@ -38,7 +38,7 @@ public class TileMapMesh : MonoBehaviour {
         for (int z = 0; z < numVerticesZ; z++) { // vertex row
             for (int x = 0; x < numVerticesX; x++) { // vertex col
                 int idx = z * numVerticesX + x;
-                float height = Random.Range(0f, 1f);
+                float height = Random.Range(0f, 0f);
                 vertices[idx] = new Vector3(x * tileSize, height, z * tileSize);
                 normals[idx] = Vector3.up;
                 uv[idx] = new Vector2((float)x / (numVerticesX + 1), (float)z / (numVerticesZ + 1));
