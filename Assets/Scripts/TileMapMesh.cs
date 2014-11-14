@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshCollider))]
-public class TileMap : MonoBehaviour {
+public class TileMapMesh : MonoBehaviour {
     public int sizeX = 100; // number of tiles horizontally
     public int sizeZ = 50;  // number of tiles vertically
     public float tileSize = 1f;
@@ -38,7 +38,8 @@ public class TileMap : MonoBehaviour {
         for (int z = 0; z < numVerticesZ; z++) { // vertex row
             for (int x = 0; x < numVerticesX; x++) { // vertex col
                 int idx = z * numVerticesX + x;
-                vertices[idx] = new Vector3(x * tileSize, 0, z * tileSize);
+                float height = Random.Range(0f, 1f);
+                vertices[idx] = new Vector3(x * tileSize, height, z * tileSize);
                 normals[idx] = Vector3.up;
                 uv[idx] = new Vector2((float)x / (numVerticesX + 1), (float)z / (numVerticesZ + 1));
             }
@@ -50,6 +51,7 @@ public class TileMap : MonoBehaviour {
                 int tileIdx = z * sizeX + x;
                 int triIdx = tileIdx * 6;
                 int vertOffset = z * numVerticesX + x;
+
                 triangles[triIdx + 0] = vertOffset + 0;
                 triangles[triIdx + 2] = vertOffset + numVerticesX + 1;
                 triangles[triIdx + 1] = vertOffset + numVerticesX + 0;
@@ -77,5 +79,6 @@ public class TileMap : MonoBehaviour {
         var collider = GetComponent<MeshCollider>();
 
         filter.mesh = mesh;
+        collider.sharedMesh = mesh;
     }
 }
