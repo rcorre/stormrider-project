@@ -8,6 +8,7 @@ public class TileMapMesh : MonoBehaviour {
     public int sizeX = 100; // number of tiles horizontally
     public int sizeZ = 50;  // number of tiles vertically
     public float tileSize = 1f;
+    public int tileResolution = 8; // pixels per side of tile
 
     // Use this for initialization
     void Start() {
@@ -71,11 +72,29 @@ public class TileMapMesh : MonoBehaviour {
 
         // apply mesh to filter/renderer/collider
         ApplyMesh(mesh);
+        BuildTexture();
+    }
+
+    void BuildTexture() {
+        //Texture2D texture = new Texture2D(sizeX * tileResolution, sizeZ * tileResolution);
+        int texWidth = 10;
+        int texHeight = 10;
+        Texture2D texture = new Texture2D(texWidth, texHeight);
+        for (int z = 0; z < texHeight; z++) {
+            for (int x = 0; x < texWidth; x++) {
+                Color c = new Color((float)z / texHeight, 0, (float)x / texWidth);
+                texture.SetPixel(x, z, c);
+            }
+        }
+
+        texture.filterMode = FilterMode.Point; // Use Bilinear for blending, Point for no blending
+        texture.Apply();
+        var renderer = GetComponent<MeshRenderer>();
+        renderer.sharedMaterials[0].mainTexture = texture;
     }
 
     void ApplyMesh(Mesh mesh) {
         var filter = GetComponent<MeshFilter>();
-        var renderer = GetComponent<MeshRenderer>();
         var collider = GetComponent<MeshCollider>();
 
         filter.mesh = mesh;
