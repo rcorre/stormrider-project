@@ -19,7 +19,7 @@ public class TileMap : MonoBehaviour {
 
     }
 
-    void BuildMesh() {
+    public void BuildMesh() {
         // prepare data structures
         int numTiles = sizeX * sizeZ;
 
