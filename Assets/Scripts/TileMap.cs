@@ -5,6 +5,9 @@ using System.Collections;
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshCollider))]
 public class TileMap : MonoBehaviour {
+    public int sizeX = 100; // number of tiles horizontally
+    public int sizeZ = 50;  // number of tiles vertically
+    public float tileSize = 1f;
 
     // Use this for initialization
     void Start() {
@@ -18,35 +21,44 @@ public class TileMap : MonoBehaviour {
 
     void BuildMesh() {
         // prepare data structures
-        Vector3[] vertices = new Vector3[4];
-        int[] triangles = new int[2 * 3];
-        Vector3[] normals = new Vector3[4];
-        Vector2[] uv = new Vector2[4];
+        int numTiles = sizeX * sizeZ;
 
-        // generate mesh data
-        vertices[0] = new Vector3(0, 0, 0);
-        vertices[1] = new Vector3(1, 0, 0);
-        vertices[2] = new Vector3(0, 0, -1);
-        vertices[3] = new Vector3(1, 0, -1);
+        int numVerticesX = sizeX + 1;
+        int numVerticesZ = sizeZ + 1;
+        int numVertices = numVerticesX * numVerticesZ;
 
-        triangles[0] = 0;
-        triangles[1] = 3;
-        triangles[2] = 2;
+        int numTriangles = numTiles * 2;
 
-        triangles[3] = 0;
-        triangles[4] = 1;
-        triangles[5] = 3;
+        Vector3[] vertices = new Vector3[numVertices];
+        Vector3[] normals = new Vector3[numVertices];
+        Vector2[] uv = new Vector2[numVertices];
+        int[] triangles = new int[numTriangles * 3];
 
-        normals[0] = Vector3.up;
-        normals[1] = Vector3.up;
-        normals[2] = Vector3.up;
-        normals[3] = Vector3.up;
+        // generate vertices, normals, and uvs
+        for (int z = 0; z < numVerticesZ; z++) { // vertex row
+            for (int x = 0; x < numVerticesX; x++) { // vertex col
+                int idx = z * numVerticesX + x;
+                vertices[idx] = new Vector3(x * tileSize, 0, z * tileSize);
+                normals[idx] = Vector3.up;
+                uv[idx] = new Vector2((float)x / (numVerticesX + 1), (float)z / (numVerticesZ + 1));
+            }
+        }
 
-        // generate mesh data
-        uv[0] = new Vector2(0, 1);
-        uv[1] = new Vector2(0, 0);
-        uv[2] = new Vector2(1, 1);
-        uv[3] = new Vector2(1, 0);
+        // assign triangle vertices
+        for (int z = 0; z < sizeZ; z++) { // vertex row
+            for (int x = 0; x < sizeX; x++) { // vertex col
+                int tileIdx = z * sizeX + x;
+                int triIdx = tileIdx * 6;
+                int vertOffset = z * numVerticesX + x;
+                triangles[triIdx + 0] = vertOffset + 0;
+                triangles[triIdx + 1] = vertOffset + numVerticesX + 1;
+                triangles[triIdx + 2] = vertOffset + numVerticesX + 0;
+
+                triangles[triIdx + 3] = vertOffset + 0;
+                triangles[triIdx + 4] = vertOffset + 1;
+                triangles[triIdx + 5] = vertOffset + numVerticesX + 1;
+            }
+        }
 
         // create and populate a new mesh
         Mesh mesh = new Mesh();
