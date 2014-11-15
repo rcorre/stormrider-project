@@ -1,26 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// responsible for generating the visual representation of the data provided by
+/// a TileMapData object
+/// It generates a single mesh to represent the entire map
+/// </summary>
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshCollider))]
 public class TileMapMesh : MonoBehaviour {
-    public int sizeX = 100; // number of tiles horizontally
-    public int sizeZ = 50;  // number of tiles vertically
-    public float tileSize = 1f;
-    public int tileResolution = 8; // pixels per side of tile
+    public float tileSize = 1f;      // vertex spacing per tile
+    public float heightScale = 0.5f; // vertex height per unit of tile elevation
+    public int tileResolution = 8;   // pixels per side of tile
 
-    // Use this for initialization
-    void Start() {
-        BuildMesh();
-    }
-
-    // Update is called once per frame
-    void Update() {
-
-    }
-
-    public void BuildMesh() {
+    public void BuildMesh(TileMapData map) {
+        int sizeX = map.numCols;
+        int sizeZ = map.numRows;
         // prepare data structures
         int numTiles = sizeX * sizeZ;
 
