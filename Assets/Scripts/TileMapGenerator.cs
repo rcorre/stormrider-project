@@ -11,11 +11,11 @@ public class TileMapGenerator : MonoBehaviour {
 
     public TileMapData GenerateMap() {
         int[,] heightMap = new int[numRows, numCols];
-        CreateHill(heightMap, 10, 10, 5); // TEST
+        //CreateHill(heightMap, 10, 10, 5); // TEST
 
         var tiles = new Tile[numRows, numCols];
         for (int row = 0; row < numRows; row++) {
-            for (int col = 0; col < numRows; col++) {
+            for (int col = 0; col < numCols; col++) {
                 int elevation = heightMap[row, col];
                 tiles[row, col] = new Tile(elevation);
             }
