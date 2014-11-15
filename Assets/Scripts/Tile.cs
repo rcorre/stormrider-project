@@ -6,7 +6,7 @@ using System.Collections;
 /// could store information like elevation, terrain/move-cost, ect.
 /// </summary>
 public class Tile {
-    readonly int elevation;
+    public readonly int elevation;
 
     public Tile(int elevation) {
         this.elevation = elevation;
