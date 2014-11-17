@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// responsible for generating the visual representation of the data provided by
@@ -24,10 +25,10 @@ public class TileMapMesh : MonoBehaviour {
 	// each tile contains two triangles
         int numTriangles = numTiles * 2;
 
-        Vector3[] vertices = new Vector3[numVertices];
-        Vector3[] normals = new Vector3[numVertices];
-        Vector2[] uv = new Vector2[numVertices];
-        int[] triangles = new int[numTriangles * 3];
+        var vertices = new List<Vector3>();
+        var normals = new List<Vector3>();
+        var uv = new List<Vector2>();
+        var triangles = new List<int>();
 
         for (int row = 0; row < map.numRows; row++) {
             for (int col = 0; col < map.numCols; col++) {
@@ -39,45 +40,43 @@ public class TileMapMesh : MonoBehaviour {
                 float top    = col * tileSize;
                 float bottom = col * tileSize + tileSize;
 		// get the indices of the 4 vertices owned by this tile
-                int v0 = col * 2 + row * numCols * 4; // top left
-                int v1 = v0 + 1;		    // top right
-                int v2 = v0 + numCols * 2;	    // bottom left
-                int v3 = v2 + 1;		    // bottom right
+                int v0 = vertices.Count;
+                int v1 = v0 + 1;
+                int v2 = v0 + 2;
+                int v3 = v0 + 3;
 		// assign world-space positions to the vertices
-                vertices[v0] = new Vector3(left , height, top);
-                vertices[v1] = new Vector3(right, height, top);
-                vertices[v2] = new Vector3(left , height, bottom);
-                vertices[v3] = new Vector3(right, height, bottom);
+                vertices.Add(new Vector3(left , height, top));
+                vertices.Add(new Vector3(right, height, top));
+                vertices.Add(new Vector3(left , height, bottom));
+                vertices.Add(new Vector3(right, height, bottom));
 		// all normals point up for flat surface
-                normals[v0] = Vector3.up;
-                normals[v1] = Vector3.up;
-                normals[v2] = Vector3.up;
-                normals[v3] = Vector3.up;
+                normals.Add(Vector3.up);
+                normals.Add(Vector3.up);
+                normals.Add(Vector3.up);
+                normals.Add(Vector3.up);
 		// TODO: compute uvs based on terrain type, match corresponding point on texture
                 float uvX = (float)col / numCols;
                 float uvY = (float)row / numCols;
-                uv[v0] = new Vector2(uvX, uvY);
-                uv[v1] = new Vector2(uvX, uvY);
-                uv[v2] = new Vector2(uvX, uvY);
-                uv[v3] = new Vector2(uvX, uvY);
+                uv.Add(new Vector2(uvX, uvY));
+                uv.Add(new Vector2(uvX, uvY));
+                uv.Add(new Vector2(uvX, uvY));
+                uv.Add(new Vector2(uvX, uvY));
 		// assign vertex indices to the two triangles owned by this tile
-                int tileIdx = row * numCols + col;
-                int triIdx = tileIdx * 6;
-                triangles[triIdx + 0] = v0;
-                triangles[triIdx + 2] = v3;
-                triangles[triIdx + 1] = v2;
-                triangles[triIdx + 3] = v0;
-                triangles[triIdx + 5] = v1;
-                triangles[triIdx + 4] = v3;
+                triangles.Add(v0);
+                triangles.Add(v2);
+                triangles.Add(v3);
+                triangles.Add(v0);
+                triangles.Add(v3);
+                triangles.Add(v1);
             }
         }
 
         // create and populate a new mesh
         Mesh mesh = new Mesh();
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-        mesh.normals = normals;
-        mesh.uv = uv;
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        mesh.normals = normals.ToArray();
+        mesh.uv = uv.ToArray();
 
         // apply mesh to filter/renderer/collider
         ApplyMesh(mesh);
