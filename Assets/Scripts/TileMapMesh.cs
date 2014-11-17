@@ -194,6 +194,7 @@ public class TileMapMesh : MonoBehaviour {
         var filter = GetComponent<MeshFilter>();
         var collider = GetComponent<MeshCollider>();
 
+        mesh.Optimize(); // this could increase performance but also incurs higher generation time
         filter.mesh = mesh;
         collider.sharedMesh = mesh;
     }
