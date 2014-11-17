@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// responsible for generating the visual representation of the data provided by
@@ -25,7 +26,7 @@ public class TileMapMesh : MonoBehaviour {
         // each tile contains two triangles
         int numTriangles = numTiles * 2;
 
-	var meshData = new MeshData();
+        var meshData = new MeshData();
 
         for (int row = 0; row < map.numRows; row++) {
             for (int col = 0; col < map.numCols; col++) {
@@ -93,72 +94,58 @@ public class TileMapMesh : MonoBehaviour {
         if (diff != 0) {
             var norm = diff > 0 ? Vector3.left : Vector3.right;
             var nextHeight = next.elevation * heightScale;
-            int v0 = meshData.vertices.Count;
-            int v1 = v0 + 1;
-            int v2 = v0 + 2;
-            int v3 = v0 + 3;
 
-            meshData.vertices.Add(new Vector3(right, height, top));
-            meshData.vertices.Add(new Vector3(right, nextHeight, top));
-            meshData.vertices.Add(new Vector3(right, height, bottom));
-            meshData.vertices.Add(new Vector3(right, nextHeight, bottom));
+            var vertices = new Vector3[] {
+		new Vector3(right, height, top),
+		new Vector3(right, nextHeight, top),
+		new Vector3(right, height, bottom),
+		new Vector3(right, nextHeight, bottom)
+	    };
 
-            meshData.normals.Add(norm);
-            meshData.normals.Add(norm);
-            meshData.normals.Add(norm);
-            meshData.normals.Add(norm);
-
-            meshData.triangles.Add(v0);
-            meshData.triangles.Add(v3);
-            meshData.triangles.Add(v2);
-            meshData.triangles.Add(v0);
-            meshData.triangles.Add(v1);
-            meshData.triangles.Add(v3);
-
-            meshData.uv.Add(new Vector2(uvX, uvY));
-            meshData.uv.Add(new Vector2(uvX, uvY));
-            meshData.uv.Add(new Vector2(uvX, uvY));
-            meshData.uv.Add(new Vector2(uvX, uvY));
+            AddSide(tile, next, meshData, uvX, uvY, vertices, norm);
         }
     }
 
     void AddSideZ(Tile tile, Tile next, MeshData meshData, float uvX, float uvY) {
         float height = tile.elevation * heightScale;
-        float left   = tile.col * tileSize;
-        float right  = tile.col * tileSize + tileSize;
+        float left = tile.col * tileSize;
+        float right = tile.col * tileSize + tileSize;
         float bottom = tile.row * tileSize;
-        float top    = tile.row * tileSize + tileSize;
+        float top = tile.row * tileSize + tileSize;
 
         int diff = next.elevation - tile.elevation;
         if (diff != 0) {
             var norm = diff > 0 ? Vector3.back : Vector3.forward;
             var nextHeight = next.elevation * heightScale;
+
+            var vertices = new Vector3[] {
+		new Vector3(left, nextHeight, top),
+            	new Vector3(right, nextHeight, top),
+            	new Vector3(left, height, top),
+            	new Vector3(right, height, top)
+	    };
+
+            AddSide(tile, next, meshData, uvX, uvY, vertices, norm);
+        }
+    }
+
+    void AddSide(Tile tile, Tile next, MeshData meshData, float uvX, float uvY, Vector3[] vertices, Vector3 normal) {
+        int diff = next.elevation - tile.elevation;
+        if (diff != 0) {
             int v0 = meshData.vertices.Count;
             int v1 = v0 + 1;
             int v2 = v0 + 2;
             int v3 = v0 + 3;
 
-            meshData.vertices.Add(new Vector3(left, nextHeight, top));
-            meshData.vertices.Add(new Vector3(right, nextHeight, top));
-            meshData.vertices.Add(new Vector3(left, height, top));
-            meshData.vertices.Add(new Vector3(right, height, top));
+            meshData.vertices.AddRange(vertices);
 
-            meshData.normals.Add(norm);
-            meshData.normals.Add(norm);
-            meshData.normals.Add(norm);
-            meshData.normals.Add(norm);
+            meshData.normals.AddRange(new Vector3[] { normal, normal, normal, normal });
 
-            meshData.triangles.Add(v0);
-            meshData.triangles.Add(v3);
-            meshData.triangles.Add(v2);
-            meshData.triangles.Add(v0);
-            meshData.triangles.Add(v1);
-            meshData.triangles.Add(v3);
+            meshData.triangles.AddRange(new int[] { v0, v3, v2 }); // first tri
+            meshData.triangles.AddRange(new int[] { v0, v1, v3 }); // second tri
 
-            meshData.uv.Add(new Vector2(uvX, uvY));
-            meshData.uv.Add(new Vector2(uvX, uvY));
-            meshData.uv.Add(new Vector2(uvX, uvY));
-            meshData.uv.Add(new Vector2(uvX, uvY));
+            var uv = new Vector2(uvX, uvY);
+            meshData.uv.AddRange(new Vector2[] { uv, uv, uv, uv });
         }
     }
 
@@ -183,10 +170,10 @@ public class TileMapMesh : MonoBehaviour {
     void ApplyMesh(MeshData meshData) {
         // create and populate a new mesh
         Mesh mesh = new Mesh();
-        mesh.vertices  = meshData.vertices.ToArray();
+        mesh.vertices = meshData.vertices.ToArray();
         mesh.triangles = meshData.triangles.ToArray();
-        mesh.normals   = meshData.normals.ToArray();
-        mesh.uv        = meshData.uv.ToArray();
+        mesh.normals = meshData.normals.ToArray();
+        mesh.uv = meshData.uv.ToArray();
         mesh.Optimize(); // this could increase performance but also incurs higher generation time
 
         var filter = GetComponent<MeshFilter>();
