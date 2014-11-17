@@ -22,7 +22,7 @@ public class TileMapMesh : MonoBehaviour {
         int numTiles = numCols * numRows;
         // each tile owns 4 vertices -- one for each corner
         int numVertices = numTiles * 4;
-	// each tile contains two triangles
+        // each tile contains two triangles
         int numTriangles = numTiles * 2;
 
         var vertices = new List<Vector3>();
@@ -33,35 +33,35 @@ public class TileMapMesh : MonoBehaviour {
         for (int row = 0; row < map.numRows; row++) {
             for (int col = 0; col < map.numCols; col++) {
                 var tile = map.tileAt(row, col);
-		// get world coordinates that correspond to tile
+                // get world coordinates that correspond to tile
                 float height = map.tileAt(row, col).elevation * heightScale;
                 float bottom = row * tileSize;
-                float top    = row * tileSize + tileSize;
-                float left   = col * tileSize;
-                float right  = col * tileSize + tileSize;
-		// get the indices of the 4 vertices owned by this tile
+                float top = row * tileSize + tileSize;
+                float left = col * tileSize;
+                float right = col * tileSize + tileSize;
+                // get the indices of the 4 vertices owned by this tile
                 int v0 = vertices.Count;
                 int v1 = v0 + 1;
                 int v2 = v0 + 2;
                 int v3 = v0 + 3;
-		// assign world-space positions to the vertices
-                vertices.Add(new Vector3(left , height, top));
+                // assign world-space positions to the vertices
+                vertices.Add(new Vector3(left, height, top));
                 vertices.Add(new Vector3(right, height, top));
-                vertices.Add(new Vector3(left , height, bottom));
+                vertices.Add(new Vector3(left, height, bottom));
                 vertices.Add(new Vector3(right, height, bottom));
-		// all normals point up for flat surface
+                // all normals point up for flat surface
                 normals.Add(Vector3.up);
                 normals.Add(Vector3.up);
                 normals.Add(Vector3.up);
                 normals.Add(Vector3.up);
-		// TODO: compute uvs based on terrain type, match corresponding point on texture
+                // TODO: compute uvs based on terrain type, match corresponding point on texture
                 float uvX = (float)col / numCols;
                 float uvY = (float)row / numCols;
                 uv.Add(new Vector2(uvX, uvY));
                 uv.Add(new Vector2(uvX, uvY));
                 uv.Add(new Vector2(uvX, uvY));
                 uv.Add(new Vector2(uvX, uvY));
-		// assign vertex indices to the two triangles owned by this tile
+                // assign vertex indices to the two triangles owned by this tile
                 triangles.Add(v0);
                 triangles.Add(v3);
                 triangles.Add(v2);
@@ -69,8 +69,13 @@ public class TileMapMesh : MonoBehaviour {
                 triangles.Add(v1);
                 triangles.Add(v3);
                 if (col < numCols - 1) { // create side mesh to next tile
-                    var next = map.tileAt(row, col + 1);
-                    AddSide(tile, next, vertices, normals, uv, triangles, uvX, uvY);
+                    var tileToRight = map.tileAt(row, col + 1);
+                    AddSideX(tile, tileToRight, vertices, normals, uv, triangles, uvX, uvY);
+                }
+
+                if (row < numRows - 1) { // create side mesh to next tile
+                    var tileAbove = map.tileAt(row + 1, col);
+                    AddSideZ(tile, tileAbove, vertices, normals, uv, triangles, uvX, uvY);
                 }
             }
         }
@@ -87,12 +92,12 @@ public class TileMapMesh : MonoBehaviour {
         BuildTexture();
     }
 
-    void AddSide(Tile tile, Tile next, List<Vector3> vertices, List<Vector3> normals, List<Vector2> uv, List<int> triangles, float uvX, float uvY) {
+    void AddSideX(Tile tile, Tile next, List<Vector3> vertices, List<Vector3> normals, List<Vector2> uv, List<int> triangles, float uvX, float uvY) {
         float height = tile.elevation * heightScale;
-        float left   = tile.col * tileSize;
-        float right  = tile.col * tileSize + tileSize;
+        float left = tile.col * tileSize;
+        float right = tile.col * tileSize + tileSize;
         float bottom = tile.row * tileSize;
-        float top    = tile.row * tileSize + tileSize;
+        float top = tile.row * tileSize + tileSize;
 
         int diff = next.elevation - tile.elevation;
         if (diff != 0) {
@@ -114,12 +119,53 @@ public class TileMapMesh : MonoBehaviour {
             normals.Add(norm);
             normals.Add(norm);
 
-                triangles.Add(v0);
-                triangles.Add(v3);
-                triangles.Add(v2);
-                triangles.Add(v0);
-                triangles.Add(v1);
-                triangles.Add(v3);
+            triangles.Add(v0);
+            triangles.Add(v3);
+            triangles.Add(v2);
+            triangles.Add(v0);
+            triangles.Add(v1);
+            triangles.Add(v3);
+
+            uv.Add(new Vector2(uvX, uvY));
+            uv.Add(new Vector2(uvX, uvY));
+            uv.Add(new Vector2(uvX, uvY));
+            uv.Add(new Vector2(uvX, uvY));
+        }
+    }
+
+    void AddSideZ(Tile tile, Tile next, List<Vector3> vertices, List<Vector3> normals, List<Vector2> uv, List<int> triangles, float uvX, float uvY) {
+        float height = tile.elevation * heightScale;
+        float left   = tile.col * tileSize;
+        float right  = tile.col * tileSize + tileSize;
+        float bottom = tile.row * tileSize;
+        float top    = tile.row * tileSize + tileSize;
+
+        int diff = next.elevation - tile.elevation;
+        if (diff != 0) {
+            //var norm = diff > 0 ? Vector3.left : Vector3.right;
+            var norm = Vector3.left;
+            var nextHeight = next.elevation * heightScale;
+            int v0 = vertices.Count;
+            int v1 = v0 + 1;
+            int v2 = v0 + 2;
+            int v3 = v0 + 3;
+
+            vertices.Add(new Vector3(left, nextHeight, top));
+            vertices.Add(new Vector3(right, nextHeight, top));
+            vertices.Add(new Vector3(left, height, top));
+            vertices.Add(new Vector3(right, height, top));
+
+            normals.Add(norm);
+            normals.Add(norm);
+            normals.Add(norm);
+            normals.Add(norm);
+
+            triangles.Add(v0);
+            triangles.Add(v3);
+            triangles.Add(v2);
+            triangles.Add(v0);
+            triangles.Add(v1);
+            triangles.Add(v3);
 
             uv.Add(new Vector2(uvX, uvY));
             uv.Add(new Vector2(uvX, uvY));
