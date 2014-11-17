@@ -35,10 +35,10 @@ public class TileMapMesh : MonoBehaviour {
                 var tile = map.tileAt(row, col);
 		// get world coordinates that correspond to tile
                 float height = map.tileAt(row, col).elevation * heightScale;
-                float left   = row * tileSize;
-                float right  = row * tileSize + tileSize;
-                float top    = col * tileSize;
-                float bottom = col * tileSize + tileSize;
+                float bottom = row * tileSize;
+                float top    = row * tileSize + tileSize;
+                float left   = col * tileSize;
+                float right  = col * tileSize + tileSize;
 		// get the indices of the 4 vertices owned by this tile
                 int v0 = vertices.Count;
                 int v1 = v0 + 1;
@@ -63,11 +63,11 @@ public class TileMapMesh : MonoBehaviour {
                 uv.Add(new Vector2(uvX, uvY));
 		// assign vertex indices to the two triangles owned by this tile
                 triangles.Add(v0);
+                triangles.Add(v3);
                 triangles.Add(v2);
-                triangles.Add(v3);
                 triangles.Add(v0);
-                triangles.Add(v3);
                 triangles.Add(v1);
+                triangles.Add(v3);
                 if (col < numCols - 1) { // create side mesh to next tile
                     var next = map.tileAt(row, col + 1);
                     AddSide(tile, next, vertices, normals, uv, triangles, uvX, uvY);
@@ -89,10 +89,10 @@ public class TileMapMesh : MonoBehaviour {
 
     void AddSide(Tile tile, Tile next, List<Vector3> vertices, List<Vector3> normals, List<Vector2> uv, List<int> triangles, float uvX, float uvY) {
         float height = tile.elevation * heightScale;
-        float left   = tile.row * tileSize;
-        float right  = tile.row * tileSize + tileSize;
-        float top    = tile.col * tileSize;
-        float bottom = tile.col * tileSize + tileSize;
+        float left   = tile.col * tileSize;
+        float right  = tile.col * tileSize + tileSize;
+        float bottom = tile.row * tileSize;
+        float top    = tile.row * tileSize + tileSize;
 
         int diff = next.elevation - tile.elevation;
         if (diff != 0) {
@@ -114,12 +114,12 @@ public class TileMapMesh : MonoBehaviour {
             normals.Add(norm);
             normals.Add(norm);
 
-            triangles.Add(v0);
-            triangles.Add(v2);
-            triangles.Add(v3);
-            triangles.Add(v0);
-            triangles.Add(v3);
-            triangles.Add(v1);
+                triangles.Add(v0);
+                triangles.Add(v3);
+                triangles.Add(v2);
+                triangles.Add(v0);
+                triangles.Add(v1);
+                triangles.Add(v3);
 
             uv.Add(new Vector2(uvX, uvY));
             uv.Add(new Vector2(uvX, uvY));
