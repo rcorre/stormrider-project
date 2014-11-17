@@ -68,6 +68,10 @@ public class TileMapMesh : MonoBehaviour {
                 triangles.Add(v0);
                 triangles.Add(v3);
                 triangles.Add(v1);
+                if (col < numCols - 1) { // create side mesh to next tile
+                    var next = map.tileAt(row, col + 1);
+                    AddSide(tile, next, vertices, normals, uv, triangles, uvX, uvY);
+                }
             }
         }
 
@@ -81,6 +85,47 @@ public class TileMapMesh : MonoBehaviour {
         // apply mesh to filter/renderer/collider
         ApplyMesh(mesh);
         BuildTexture();
+    }
+
+    void AddSide(Tile tile, Tile next, List<Vector3> vertices, List<Vector3> normals, List<Vector2> uv, List<int> triangles, float uvX, float uvY) {
+        float height = tile.elevation * heightScale;
+        float left   = tile.row * tileSize;
+        float right  = tile.row * tileSize + tileSize;
+        float top    = tile.col * tileSize;
+        float bottom = tile.col * tileSize + tileSize;
+
+        int diff = next.elevation - tile.elevation;
+        if (diff != 0) {
+            //var norm = diff > 0 ? Vector3.left : Vector3.right;
+            var norm = Vector3.left;
+            var nextHeight = next.elevation * heightScale;
+            int v0 = vertices.Count;
+            int v1 = v0 + 1;
+            int v2 = v0 + 2;
+            int v3 = v0 + 3;
+
+            vertices.Add(new Vector3(right, height, top));
+            vertices.Add(new Vector3(right, nextHeight, top));
+            vertices.Add(new Vector3(right, height, bottom));
+            vertices.Add(new Vector3(right, nextHeight, bottom));
+
+            normals.Add(norm);
+            normals.Add(norm);
+            normals.Add(norm);
+            normals.Add(norm);
+
+            triangles.Add(v0);
+            triangles.Add(v2);
+            triangles.Add(v3);
+            triangles.Add(v0);
+            triangles.Add(v3);
+            triangles.Add(v1);
+
+            uv.Add(new Vector2(uvX, uvY));
+            uv.Add(new Vector2(uvX, uvY));
+            uv.Add(new Vector2(uvX, uvY));
+            uv.Add(new Vector2(uvX, uvY));
+        }
     }
 
     void BuildTexture() {

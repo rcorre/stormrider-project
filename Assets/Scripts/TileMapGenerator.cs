@@ -17,7 +17,7 @@ public class TileMapGenerator : MonoBehaviour {
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
                 int elevation = heightMap[row, col];
-                tiles[row, col] = new Tile(elevation);
+                tiles[row, col] = new Tile(row, col, elevation);
             }
         }
 
