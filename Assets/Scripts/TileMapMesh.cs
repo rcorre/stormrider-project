@@ -17,15 +17,6 @@ public class TileMapMesh : MonoBehaviour {
     public int tileResolution = 8;   // pixels per side of tile
 
     public void BuildMesh(TileMapData map) {
-        int numCols = map.numCols;
-        int numRows = map.numRows;
-        // prepare data structures
-        int numTiles = numCols * numRows;
-        // each tile owns 4 vertices -- one for each corner
-        int numVertices = numTiles * 4;
-        // each tile contains two triangles
-        int numTriangles = numTiles * 2;
-
         var meshData = new MeshData();
 
         for (int row = 0; row < map.numRows; row++) {
@@ -37,41 +28,25 @@ public class TileMapMesh : MonoBehaviour {
                 float top = row * tileSize + tileSize;
                 float left = col * tileSize;
                 float right = col * tileSize + tileSize;
-                // get the indices of the 4 vertices owned by this tile
-                int v0 = meshData.vertices.Count;
-                int v1 = v0 + 1;
-                int v2 = v0 + 2;
-                int v3 = v0 + 3;
-                // assign world-space positions to the vertices
-                meshData.vertices.Add(new Vector3(left, height, top));
-                meshData.vertices.Add(new Vector3(right, height, top));
-                meshData.vertices.Add(new Vector3(left, height, bottom));
-                meshData.vertices.Add(new Vector3(right, height, bottom));
-                // all normals point up for flat surface
-                meshData.normals.Add(Vector3.up);
-                meshData.normals.Add(Vector3.up);
-                meshData.normals.Add(Vector3.up);
-                meshData.normals.Add(Vector3.up);
-                // TODO: compute uvs based on terrain type, match corresponding point on texture
-                float uvX = (float)col / numCols;
-                float uvY = (float)row / numCols;
-                meshData.uv.Add(new Vector2(uvX, uvY));
-                meshData.uv.Add(new Vector2(uvX, uvY));
-                meshData.uv.Add(new Vector2(uvX, uvY));
-                meshData.uv.Add(new Vector2(uvX, uvY));
-                // assign vertex indices to the two triangles owned by this tile
-                meshData.triangles.Add(v0);
-                meshData.triangles.Add(v3);
-                meshData.triangles.Add(v2);
-                meshData.triangles.Add(v0);
-                meshData.triangles.Add(v1);
-                meshData.triangles.Add(v3);
-                if (col < numCols - 1) { // create side mesh to next tile
+                // assign these positions to the 4 vertices owned by this tile
+                var vertices = new Vector3[] {
+		    new Vector3(left, height, top),
+		    new Vector3(right, height, top),
+                    new Vector3(left, height, bottom),
+                    new Vector3(right, height, bottom)
+		};
+
+                float uvX = (float)col / map.numCols;
+                float uvY = (float)row / map.numCols;
+                var normal = Vector3.up;
+                // add top surface of tile to mesh
+                AddSurface(meshData, uvX, uvY, vertices, normal);
+		// add right and bottom surfaces of tile to mesh
+                if (col < map.numCols - 1) { // create mesh to next tile in x direction
                     var tileToRight = map.tileAt(row, col + 1);
                     AddSideX(tile, tileToRight, meshData, uvX, uvY);
                 }
-
-                if (row < numRows - 1) { // create side mesh to next tile
+                if (row < map.numRows - 1) { // create mesh to next tile in z direction
                     var tileAbove = map.tileAt(row + 1, col);
                     AddSideZ(tile, tileAbove, meshData, uvX, uvY);
                 }
@@ -85,7 +60,6 @@ public class TileMapMesh : MonoBehaviour {
 
     void AddSideX(Tile tile, Tile next, MeshData meshData, float uvX, float uvY) {
         float height = tile.elevation * heightScale;
-        float left = tile.col * tileSize;
         float right = tile.col * tileSize + tileSize;
         float bottom = tile.row * tileSize;
         float top = tile.row * tileSize + tileSize;
@@ -102,7 +76,7 @@ public class TileMapMesh : MonoBehaviour {
 		new Vector3(right, nextHeight, bottom)
 	    };
 
-            AddSide(tile, next, meshData, uvX, uvY, vertices, norm);
+            AddSurface(meshData, uvX, uvY, vertices, norm);
         }
     }
 
@@ -110,7 +84,6 @@ public class TileMapMesh : MonoBehaviour {
         float height = tile.elevation * heightScale;
         float left = tile.col * tileSize;
         float right = tile.col * tileSize + tileSize;
-        float bottom = tile.row * tileSize;
         float top = tile.row * tileSize + tileSize;
 
         int diff = next.elevation - tile.elevation;
@@ -125,28 +98,25 @@ public class TileMapMesh : MonoBehaviour {
             	new Vector3(right, height, top)
 	    };
 
-            AddSide(tile, next, meshData, uvX, uvY, vertices, norm);
+            AddSurface(meshData, uvX, uvY, vertices, norm);
         }
     }
 
-    void AddSide(Tile tile, Tile next, MeshData meshData, float uvX, float uvY, Vector3[] vertices, Vector3 normal) {
-        int diff = next.elevation - tile.elevation;
-        if (diff != 0) {
-            int v0 = meshData.vertices.Count;
-            int v1 = v0 + 1;
-            int v2 = v0 + 2;
-            int v3 = v0 + 3;
+    void AddSurface(MeshData meshData, float uvX, float uvY, Vector3[] vertices, Vector3 normal) {
+        int v0 = meshData.vertices.Count;
+        int v1 = v0 + 1;
+        int v2 = v0 + 2;
+        int v3 = v0 + 3;
+        var uv = new Vector2(uvX, uvY); // TODO: get uv from terrain type
 
-            meshData.vertices.AddRange(vertices);
+        meshData.vertices.AddRange(vertices);
 
-            meshData.normals.AddRange(new Vector3[] { normal, normal, normal, normal });
+        meshData.normals.AddRange(new Vector3[] { normal, normal, normal, normal });
 
-            meshData.triangles.AddRange(new int[] { v0, v3, v2 }); // first tri
-            meshData.triangles.AddRange(new int[] { v0, v1, v3 }); // second tri
+        meshData.triangles.AddRange(new int[] { v0, v3, v2 }); // first tri
+        meshData.triangles.AddRange(new int[] { v0, v1, v3 }); // second tri
 
-            var uv = new Vector2(uvX, uvY);
-            meshData.uv.AddRange(new Vector2[] { uv, uv, uv, uv });
-        }
+        meshData.uv.AddRange(new Vector2[] { uv, uv, uv, uv });
     }
 
     void BuildTexture() {
