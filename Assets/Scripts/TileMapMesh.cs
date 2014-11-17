@@ -101,8 +101,7 @@ public class TileMapMesh : MonoBehaviour {
 
         int diff = next.elevation - tile.elevation;
         if (diff != 0) {
-            //var norm = diff > 0 ? Vector3.left : Vector3.right;
-            var norm = Vector3.left;
+            var norm = diff > 0 ? Vector3.left : Vector3.right;
             var nextHeight = next.elevation * heightScale;
             int v0 = vertices.Count;
             int v1 = v0 + 1;
@@ -142,8 +141,7 @@ public class TileMapMesh : MonoBehaviour {
 
         int diff = next.elevation - tile.elevation;
         if (diff != 0) {
-            //var norm = diff > 0 ? Vector3.left : Vector3.right;
-            var norm = Vector3.left;
+            var norm = diff > 0 ? Vector3.back : Vector3.forward;
             var nextHeight = next.elevation * heightScale;
             int v0 = vertices.Count;
             int v1 = v0 + 1;
