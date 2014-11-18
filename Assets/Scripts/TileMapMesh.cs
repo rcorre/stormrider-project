@@ -11,6 +11,7 @@ using System.Linq;
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshCollider))]
+[RequireComponent(typeof(TileMapTexture))]
 public class TileMapMesh : MonoBehaviour {
     public float tileSize = 1f;      // vertex spacing per tile
     public float heightScale = 0.5f; // vertex height per unit of tile elevation
@@ -18,6 +19,7 @@ public class TileMapMesh : MonoBehaviour {
 
     public void BuildMesh(TileMapData map) {
         var meshData = new MeshData();
+        var texturizer = GetComponent<TileMapTexture>();
 
         for (int row = 0; row < map.numRows; row++) {
             for (int col = 0; col < map.numCols; col++) {
@@ -36,32 +38,31 @@ public class TileMapMesh : MonoBehaviour {
                     new Vector3(right, height, bottom)
 		};
 
-                float uvX = (float)col / map.numCols;
-                float uvY = (float)row / map.numCols;
+                // get uv coords based on elevation
+                var uvs = texturizer.elevationToUv(tile.elevation);
                 var normal = Vector3.up;
                 // add top surface of tile to mesh
-                AddSurface(meshData, uvX, uvY, vertices, normal);
+                AddSurface(meshData, vertices, uvs, normal);
                 // add right and bottom surfaces of tile to mesh
                 if (col < map.numCols - 1) { // create mesh to next tile in x direction
                     var tileToRight = map.tileAt(row, col + 1);
-                    AddSideX(tile, tileToRight, meshData, uvX, uvY);
+                    AddSideX(tile, tileToRight, meshData, uvs);
                 }
                 if (row < map.numRows - 1) { // create mesh to next tile in z direction
                     var tileAbove = map.tileAt(row + 1, col);
-                    AddSideZ(tile, tileAbove, meshData, uvX, uvY);
+                    AddSideZ(tile, tileAbove, meshData, uvs);
                 }
             }
         }
 
         // apply mesh to filter/renderer/collider
         ApplyMesh(meshData);
-        BuildTexture();
     }
 
     /// <summary>
     /// add a side between tile and next (the tile in the following column)
     /// </summary>
-    void AddSideX(Tile tile, Tile next, MeshData meshData, float uvX, float uvY) {
+    void AddSideX(Tile tile, Tile next, MeshData meshData, Vector2[] uvs) {
         float height = tile.elevation * heightScale;
         float right = tile.col * tileSize + tileSize;
         float bottom = tile.row * tileSize;
@@ -77,13 +78,13 @@ public class TileMapMesh : MonoBehaviour {
 	    new Vector3(right, nextHeight, bottom)
 	};
 
-        AddSurface(meshData, uvX, uvY, vertices, norm);
+        AddSurface(meshData, vertices, uvs, norm);
     }
 
     /// <summary>
     /// add a side between tile and next (the tile in the following row)
     /// </summary>
-    void AddSideZ(Tile tile, Tile next, MeshData meshData, float uvX, float uvY) {
+    void AddSideZ(Tile tile, Tile next, MeshData meshData, Vector2[] uvs) {
         float height = tile.elevation * heightScale;
         float left = tile.col * tileSize;
         float right = tile.col * tileSize + tileSize;
@@ -99,15 +100,14 @@ public class TileMapMesh : MonoBehaviour {
 	    new Vector3(right, height, top)
 	};
 
-        AddSurface(meshData, uvX, uvY, vertices, norm);
+        AddSurface(meshData, vertices, uvs, norm);
     }
 
-    void AddSurface(MeshData meshData, float uvX, float uvY, Vector3[] vertices, Vector3 normal) {
+    void AddSurface(MeshData meshData, Vector3[] vertices, Vector2[] uvs, Vector3 normal) {
         int v0 = meshData.vertices.Count;
         int v1 = v0 + 1;
         int v2 = v0 + 2;
         int v3 = v0 + 3;
-        var uv = new Vector2(uvX, uvY); // TODO: get uv from terrain type
 
         meshData.vertices.AddRange(vertices);
 
@@ -116,25 +116,7 @@ public class TileMapMesh : MonoBehaviour {
         meshData.triangles.AddRange(new int[] { v0, v3, v2 }); // first tri
         meshData.triangles.AddRange(new int[] { v0, v1, v3 }); // second tri
 
-        meshData.uv.AddRange(new Vector2[] { uv, uv, uv, uv });
-    }
-
-    void BuildTexture() {
-        //Texture2D texture = new Texture2D(sizeX * tileResolution, sizeZ * tileResolution);
-        int texWidth = 10;
-        int texHeight = 10;
-        Texture2D texture = new Texture2D(texWidth, texHeight);
-        for (int z = 0; z < texHeight; z++) {
-            for (int x = 0; x < texWidth; x++) {
-                Color c = new Color((float)z / texHeight, 0, (float)x / texWidth);
-                texture.SetPixel(x, z, c);
-            }
-        }
-
-        texture.filterMode = FilterMode.Point; // Use Bilinear for blending, Point for no blending
-        texture.Apply();
-        var renderer = GetComponent<MeshRenderer>();
-        renderer.sharedMaterials[0].mainTexture = texture;
+        meshData.uv.AddRange(uvs);
     }
 
     void ApplyMesh(MeshData meshData) {
