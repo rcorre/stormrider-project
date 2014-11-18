@@ -41,7 +41,7 @@ public class TileMapMesh : MonoBehaviour {
                 var normal = Vector3.up;
                 // add top surface of tile to mesh
                 AddSurface(meshData, uvX, uvY, vertices, normal);
-		// add right and bottom surfaces of tile to mesh
+                // add right and bottom surfaces of tile to mesh
                 if (col < map.numCols - 1) { // create mesh to next tile in x direction
                     var tileToRight = map.tileAt(row, col + 1);
                     AddSideX(tile, tileToRight, meshData, uvX, uvY);
@@ -58,48 +58,48 @@ public class TileMapMesh : MonoBehaviour {
         BuildTexture();
     }
 
+    /// <summary>
+    /// add a side between tile and next (the tile in the following column)
+    /// </summary>
     void AddSideX(Tile tile, Tile next, MeshData meshData, float uvX, float uvY) {
         float height = tile.elevation * heightScale;
         float right = tile.col * tileSize + tileSize;
         float bottom = tile.row * tileSize;
         float top = tile.row * tileSize + tileSize;
 
-        int diff = next.elevation - tile.elevation;
-        if (diff != 0) {
-            var norm = diff > 0 ? Vector3.left : Vector3.right;
-            var nextHeight = next.elevation * heightScale;
+        var norm = next.elevation > tile.elevation ? Vector3.left : Vector3.right;
+        var nextHeight = next.elevation * heightScale;
 
-            var vertices = new Vector3[] {
-		new Vector3(right, height, top),
-		new Vector3(right, nextHeight, top),
-		new Vector3(right, height, bottom),
-		new Vector3(right, nextHeight, bottom)
-	    };
+        var vertices = new Vector3[] {
+	    new Vector3(right, height, top),
+	    new Vector3(right, nextHeight, top),
+	    new Vector3(right, height, bottom),
+	    new Vector3(right, nextHeight, bottom)
+	};
 
-            AddSurface(meshData, uvX, uvY, vertices, norm);
-        }
+        AddSurface(meshData, uvX, uvY, vertices, norm);
     }
 
+    /// <summary>
+    /// add a side between tile and next (the tile in the following row)
+    /// </summary>
     void AddSideZ(Tile tile, Tile next, MeshData meshData, float uvX, float uvY) {
         float height = tile.elevation * heightScale;
         float left = tile.col * tileSize;
         float right = tile.col * tileSize + tileSize;
         float top = tile.row * tileSize + tileSize;
 
-        int diff = next.elevation - tile.elevation;
-        if (diff != 0) {
-            var norm = diff > 0 ? Vector3.back : Vector3.forward;
-            var nextHeight = next.elevation * heightScale;
+        var norm = next.elevation > tile.elevation ? Vector3.back : Vector3.forward;
+        var nextHeight = next.elevation * heightScale;
 
-            var vertices = new Vector3[] {
-		new Vector3(left, nextHeight, top),
-            	new Vector3(right, nextHeight, top),
-            	new Vector3(left, height, top),
-            	new Vector3(right, height, top)
-	    };
+        var vertices = new Vector3[] {
+	    new Vector3(left, nextHeight, top),
+    	    new Vector3(right, nextHeight, top),
+	    new Vector3(left, height, top),
+	    new Vector3(right, height, top)
+	};
 
-            AddSurface(meshData, uvX, uvY, vertices, norm);
-        }
+        AddSurface(meshData, uvX, uvY, vertices, norm);
     }
 
     void AddSurface(MeshData meshData, float uvX, float uvY, Vector3[] vertices, Vector3 normal) {
@@ -162,7 +162,6 @@ public class TileMapMesh : MonoBehaviour {
             normals = new List<Vector3>();
             uv = new List<Vector2>();
             triangles = new List<int>();
-
         }
         public List<Vector3> vertices;
         public List<Vector3> normals;
