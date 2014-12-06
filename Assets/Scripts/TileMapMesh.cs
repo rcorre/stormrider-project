@@ -135,6 +135,18 @@ public class TileMapMesh : MonoBehaviour {
         collider.sharedMesh = mesh;
     }
 
+    bool RayCastToTile(Ray ray, out int row, out int col) {
+        RaycastHit hitInfo;
+        if (collider.Raycast(ray, out hitInfo, Mathf.Infinity)) {
+            var point = transform.worldToLocalMatrix.MultiplyVector(hitInfo.point);
+            row = Mathf.FloorToInt(point.x / tileSize);
+            col = Mathf.FloorToInt(point.z / tileSize);
+            return true;
+        }
+        row = col = 0;
+        return false;
+    }
+
     /// <summary>
     /// convenience container for storing related mesh data during generation
     /// </summary>
