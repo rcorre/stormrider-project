@@ -6,9 +6,6 @@ using System.Collections;
 public class TileMap : MonoBehaviour {
     private TileMapData _data;
 
-    public void setElevation(int row, int col, int elevation) {
-    }
-
     public void GenerateMap() {
         var mapGen = GetComponent<TileMapGenerator>();
         var mapMesh = GetComponent<TileMapMesh>();

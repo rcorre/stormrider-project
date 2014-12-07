@@ -13,13 +13,4 @@ public class TileMapEditor : Editor {
             tilemap.GenerateMap();
         }
     }
-
-    void OnSceneGUI() {
-        Event ev = Event.current;
-        if (ev.type == EventType.MouseUp) {
-            var mesh = ((TileMap)target).GetComponent<TileMapMesh>();
-            Ray ray = Camera.current.ScreenPointToRay(ev.mousePosition);
-
-        }
-    }
 }
