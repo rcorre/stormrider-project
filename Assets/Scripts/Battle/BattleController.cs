@@ -21,7 +21,7 @@ public class BattleController : MonoBehaviour {
         foreach (var npc in battleData.npcs) {
 	    var npcData = battleData.npcData[npc.index];
 	    var tile = _map.TileAt(npc.row, npc.col);
-	    _npcs.Add(Battler.Create(npcData, tile));
+	    _npcs.Add(Battler.Create(npcData, Alignment.Enemy, tile));
         }
 
 	// add player characters to deploy points
@@ -30,7 +30,7 @@ public class BattleController : MonoBehaviour {
 	    var coord = battleData.deployPoints[i];
             var charData = DataManager.Fetch<CharacterData>(name);
 	    var tile = _map.TileAt(coord.row, coord.col);
-	    _playerParty.Add(Battler.Create(charData, tile));
+	    _playerParty.Add(Battler.Create(charData, Alignment.Ally, tile));
         }
     }
 }
