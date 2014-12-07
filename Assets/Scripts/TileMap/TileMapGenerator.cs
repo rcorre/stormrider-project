@@ -9,7 +9,7 @@ using System.Collections;
 public class TileMapGenerator : MonoBehaviour {
     public int numRows, numCols;
 
-    public TileMapData GenerateMap() {
+    public Tile[,] GenerateMap() {
         int[,] heightMap = new int[numRows, numCols];
         CreateHill(heightMap, 10, 10, 8); // TEST
 
@@ -21,7 +21,7 @@ public class TileMapGenerator : MonoBehaviour {
             }
         }
 
-        return new TileMapData(tiles);
+        return tiles;
     }
 
     void CreateHill(int[,] heightMap, int centerRow, int centerCol, int elevation) {

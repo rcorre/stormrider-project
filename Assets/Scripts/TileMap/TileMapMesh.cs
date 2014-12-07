@@ -17,7 +17,7 @@ public class TileMapMesh : MonoBehaviour {
     public float heightScale = 0.5f; // vertex height per unit of tile elevation
     public int tileResolution = 8;   // pixels per side of tile
 
-    public void BuildMesh(TileMapData map) {
+    public void BuildMesh(TileMap map) {
         var meshData = new MeshData();
         var texturizer = GetComponent<TileMapTexture>();
 
@@ -76,6 +76,13 @@ public class TileMapMesh : MonoBehaviour {
         }
         row = col = 0;
         return false;
+    }
+
+    public Vector3 TileSurfaceCenter(Tile tile) {
+        float x = tile.col * tileSize;
+        float y = tile.elevation * heightScale;
+        float z = tile.row * tileSize;
+        return new Vector3(x, y, z);
     }
 
     /// <summary>
