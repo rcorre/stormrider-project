@@ -17,6 +17,6 @@ public struct NPCInstance {
 }
 
 public struct TileCoord {
-    int row;
-    int col;
+    public int row;
+    public int col;
 }

@@ -4,10 +4,6 @@ using System.Linq;
 using System.Collections.Generic;
 using FullSerializer;
 
-using TalentStore = System.Collections.Generic.Dictionary<string,TalentData>;
-using EquipmentStore = System.Collections.Generic.Dictionary<string,EquipmentData>;
-using MaterialStore = System.Collections.Generic.Dictionary<string,EquipmentMaterial>;
-
 public class DataManager : MonoBehaviour {
     /// <summary>
     /// objects of type T are accessed as _store[T][key]
