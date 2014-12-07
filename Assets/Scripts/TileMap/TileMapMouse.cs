@@ -17,8 +17,9 @@ public class TileMapMouse : MonoBehaviour {
             var point = transform.worldToLocalMatrix.MultiplyVector(hitInfo.point);
             int x = Mathf.FloorToInt(point.x / _tileMap.tileSize);
             int z = Mathf.FloorToInt(point.z / _tileMap.tileSize);
+            float y = point.y;
 
-            selectionCube.transform.position = new Vector3(x * _tileMap.tileSize, 0, z * _tileMap.tileSize);
+            selectionCube.transform.position = new Vector3(x * _tileMap.tileSize, y, z * _tileMap.tileSize);
         }
     }
 }

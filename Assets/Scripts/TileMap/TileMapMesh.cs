@@ -60,6 +60,25 @@ public class TileMapMesh : MonoBehaviour {
     }
 
     /// <summary>
+    /// check if a ray intersects a tile in the mesh
+    /// </summary>
+    /// <param name="ray">ray to check for intersection</param>
+    /// <param name="row">row that ray intersected</param>
+    /// <param name="col">col that ray intersected</param>
+    /// <returns>true if the ray intersected a tile</returns>
+    public bool RayCastToTile(Ray ray, out int row, out int col) {
+        RaycastHit hitInfo;
+        if (collider.Raycast(ray, out hitInfo, Mathf.Infinity)) {
+            var point = transform.worldToLocalMatrix.MultiplyVector(hitInfo.point);
+            row = Mathf.FloorToInt(point.x / tileSize);
+            col = Mathf.FloorToInt(point.z / tileSize);
+            return true;
+        }
+        row = col = 0;
+        return false;
+    }
+
+    /// <summary>
     /// add a side between tile and next (the tile in the following column)
     /// </summary>
     void AddSideX(Tile tile, Tile next, MeshData meshData, Vector2[] uvs) {
@@ -133,18 +152,6 @@ public class TileMapMesh : MonoBehaviour {
 
         filter.mesh = mesh;
         collider.sharedMesh = mesh;
-    }
-
-    bool RayCastToTile(Ray ray, out int row, out int col) {
-        RaycastHit hitInfo;
-        if (collider.Raycast(ray, out hitInfo, Mathf.Infinity)) {
-            var point = transform.worldToLocalMatrix.MultiplyVector(hitInfo.point);
-            row = Mathf.FloorToInt(point.x / tileSize);
-            col = Mathf.FloorToInt(point.z / tileSize);
-            return true;
-        }
-        row = col = 0;
-        return false;
     }
 
     /// <summary>
