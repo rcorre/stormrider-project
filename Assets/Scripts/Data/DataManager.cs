@@ -36,6 +36,23 @@ public class DataManager : MonoBehaviour {
 	_store[typeof(T)] = data.ToDictionary(x => getKey(x), x => (object)x);
     }
 
+    /// <summary>
+    /// load data of type T, but do not cache it
+    /// </summary>
+    /// <typeparam name="T">Type to deserialize in to</typeparam>
+    /// <param name="fileName">name of file under resources, without extension</param>
+    /// <returns></returns>
+    public static T LoadOnce<T>(string fileName) {
+	var asset = Resources.Load<TextAsset>(fileName);
+	return JsonApi.Deserialize<T>(asset.text);
+    }
+
+    /// <summary>
+    /// retrieve data that has already been Loaded (and cached)
+    /// </summary>
+    /// <typeparam name="T">type data was deserialized into when loaded</typeparam>
+    /// <param name="key">key of data within store</param>
+    /// <returns>cached data matching key and type</returns>
     public static T Fetch<T>(string key) {
 	Type type = typeof(T);
 	Util.Assert(_store.ContainsKey(type), "no data of type " + type + "has been loaded");

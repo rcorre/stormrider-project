@@ -21,7 +21,7 @@ public enum CharacterAttribute {
 public class AttributeSet : Enumap<CharacterAttribute, int> { }
 public class AttributeSetConverter : DictConverter<AttributeSet> { }
 
-public struct CharacterData {
+public class CharacterData {
     public readonly string name;
     public readonly CharacterRace race;
     public readonly int level;

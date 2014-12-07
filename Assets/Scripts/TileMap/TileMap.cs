@@ -17,7 +17,7 @@ public class TileMap : MonoBehaviour {
         mapMesh.BuildMesh(this);
     }
 
-    public Tile tileAt(int row, int col) {
+    public Tile TileAt(int row, int col) {
         if (row < 0 || row >= numRows || col < 0 || col >= numCols) {
             Debug.LogError(string.Format("tile coords ({0},{1}) are out of bounds ({2},{3})", row, col, numCols, numRows));
         }

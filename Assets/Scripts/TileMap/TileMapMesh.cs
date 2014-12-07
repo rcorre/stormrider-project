@@ -23,9 +23,9 @@ public class TileMapMesh : MonoBehaviour {
 
         for (int row = 0; row < map.numRows; row++) {
             for (int col = 0; col < map.numCols; col++) {
-                var tile = map.tileAt(row, col);
+                var tile = map.TileAt(row, col);
                 // get world coordinates that correspond to tile
-                float height = map.tileAt(row, col).elevation * heightScale;
+                float height = map.TileAt(row, col).elevation * heightScale;
                 float bottom = row * tileSize;
                 float top = row * tileSize + tileSize;
                 float left = col * tileSize;
@@ -45,11 +45,11 @@ public class TileMapMesh : MonoBehaviour {
                 AddSurface(meshData, vertices, uvs, normal);
                 // add right and bottom surfaces of tile to mesh
                 if (col < map.numCols - 1) { // create mesh to next tile in x direction
-                    var tileToRight = map.tileAt(row, col + 1);
+                    var tileToRight = map.TileAt(row, col + 1);
                     AddSideX(tile, tileToRight, meshData, uvs);
                 }
                 if (row < map.numRows - 1) { // create mesh to next tile in z direction
-                    var tileAbove = map.tileAt(row + 1, col);
+                    var tileAbove = map.TileAt(row + 1, col);
                     AddSideZ(tile, tileAbove, meshData, uvs);
                 }
             }
@@ -79,9 +79,9 @@ public class TileMapMesh : MonoBehaviour {
     }
 
     public Vector3 TileSurfaceCenter(Tile tile) {
-        float x = tile.col * tileSize;
+        float x = tile.col * tileSize + tileSize / 2;
         float y = tile.elevation * heightScale;
-        float z = tile.row * tileSize;
+        float z = tile.row * tileSize + tileSize / 2;
         return new Vector3(x, y, z);
     }
 
