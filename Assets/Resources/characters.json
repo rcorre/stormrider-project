@@ -1,0 +1,72 @@
+[
+	{
+		"name": "Myron",
+		"race": "Human",
+		"level": 2,
+		"xp": 10,
+		"attributes": {
+			"str": 5,
+			"dex": 4,
+			"con": 3,
+			"int": 8,
+			"wis": 4,
+			"cha": 6
+		},
+		"mainHand": {
+			"model": "longSword",
+			"material": "iron"
+		},
+		"offHand": {
+			"model": "buckler",
+			"material": "oak"
+		},
+		"armor": [
+			{
+				"model": "cuirass",
+				"material": "iron"
+			}
+		],
+		"feats": [
+			{
+				"name": "Slash",
+				"talents": [
+					{ "key": "strike", "rank": 2},
+					{ "key": "wound", "rank": 1},
+					{ "key": "feint", "rank": 2}
+				]
+			},
+			{
+				"name": "Dragoon Strike",
+				"talents": [
+					{ "key": "leap", "rank": 2},
+					{ "key": "power", "rank": 3}
+				]
+			},
+			{
+				"name": "Torch",
+				"talents": [
+					{ "key": "breath", "rank": 1},
+					{ "key": "combust", "rank": 3}
+				]
+			},
+			{
+				"name": "Crash and Burn",
+				"talents": [
+					{ "key": "wave", "rank": 2},
+					{ "key": "combust", "rank": 3},
+					{ "key": "lastResort", "rank": 1}
+				]
+			}
+		],
+		"archetypes": [
+			{
+				"name": "Warrior",
+				"feats": [ "Slash", "Dragoon Strike" ]
+			},
+			{
+				"name": "Mage",
+				"feats": [ "Torch", "Crash and Burn" ]
+			}
+		]
+	}
+]

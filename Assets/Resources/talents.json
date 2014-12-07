@@ -1,0 +1,115 @@
+[
+	{
+		"key": "strike",
+		"name": "Strike",
+		"type": "Major",
+		"requirement": "Melee",
+		"attribute": "Str",
+		"apCost": 1,
+		"cooldown": 0,
+		"stamina": 0,
+		"aoe": "Single",
+		"range": 1,
+		"damage": 4
+	},
+
+	{
+		"key": "leap",
+		"name": "Leap",
+		"type": "Major",
+		"requirement": "Melee",
+		"attribute": "Str",
+		"apCost": 2,
+		"cooldown": 4,
+		"stamina": 8,
+		"aoe": "Single",
+		"range": 3,
+		"damage": 4
+	},
+
+	{
+		"key": "breath",
+		"name": "Breath",
+		"type": "Major",
+		"requirement": "Magic",
+		"attribute": "Int",
+		"apCost": 2,
+		"cooldown": 4,
+		"stamina": 4,
+		"aoe": "Cone",
+		"range": 3,
+		"damage": 4
+	},
+
+	{
+		"key": "wave",
+		"name": "Wave",
+		"type": "Major",
+		"requirement": "Magic",
+		"attribute": "Int",
+		"apCost": 2,
+		"cooldown": 6,
+		"stamina": 6,
+		"aoe": "Burst",
+		"range": 0
+	},
+
+	{
+		"key": "wound",
+		"name": "Wound",
+		"type": "Major",
+		"requirement": "Melee",
+		"attribute": "Dex",
+		"apCost": 2,
+		"cooldown": 0,
+		"stamina": 4,
+		"statusEffect": "Bleeding"
+	},
+
+	{
+		"key": "combust",
+		"name": "Combust",
+		"type": "Major",
+		"requirement": "Magic",
+		"attribute": "Int",
+		"apCost": 2,
+		"cooldown": 0,
+		"stamina": 4,
+		"statusEffect": "Burning"
+	},
+
+	{
+		"key": "power",
+		"name": "Power",
+		"type": "Technique",
+		"requirement": "Melee",
+		"attribute": "Str",
+		"apCost": 2,
+		"cooldown": 4,
+		"stamina": 4,
+		"damage": 2
+	},
+
+	{
+		"key": "feint",
+		"name": "Feint",
+		"type": "Technique",
+		"requirement": "Melee",
+		"attribute": "Dex",
+		"apCost": 2,
+		"cooldown": 4,
+		"stamina": 4,
+		"toHitMod": 2
+	},
+
+	{
+		"key": "lastResort",
+		"name": "Last Resort",
+		"type": "Trigger",
+		"requirement": "None",
+		"attribute": "Con",
+		"apCost": 2,
+		"cooldown": 4,
+		"stamina": 4
+	}
+]

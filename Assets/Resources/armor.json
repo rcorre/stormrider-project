@@ -1,0 +1,14 @@
+[
+	{
+		"key": "cuirass",
+		"name": "Cuirass",
+		"weight": 5,
+		"value": 20,
+		"armorClass": {
+			"melee": 3,
+			"ranged": 3,
+			"magic": 2
+		},
+		"resistance": 6
+	}
+]
