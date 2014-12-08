@@ -23,14 +23,24 @@ public class Battler : MonoBehaviour {
 
     public int MoveRange { get { return 5; } } //TODO
 
+    /// <summary>
+    /// speed to move across tilemap. visual only, does not affect mechanics
+    /// </summary>
+    public float TileMapMoveSpeed { get { return 100f; } }
+
+    public float ObjectHeight {
+        get {
+            return GetComponent<Collider>().bounds.size.y;
+        }
+    }
+
     public void PlaceOnTile(Tile newTile) {
         if (tile != null) { // remove self from previous tile
             tile.battler = null;
         }
         var mapMesh = FindObjectOfType<TileMapMesh>();
-	var surface = mapMesh.TileSurfaceCenter(newTile);
-        float height = GetComponent<Collider>().bounds.size.y;
-        transform.position = new Vector3(surface.x, surface.y + height / 2, surface.z);
+        var surface = mapMesh.TileSurfaceCenter(newTile);
+        transform.position = new Vector3(surface.x, surface.y + ObjectHeight / 2, surface.z);
         newTile.battler = this;
         tile = newTile;
     }
@@ -41,7 +51,7 @@ public class Battler : MonoBehaviour {
         battler.character = data;
         battler.alignment = alignment;
         battler.PlaceOnTile(startTile);
-	// REMOVE THIS LATER
+        // REMOVE THIS LATER
         obj.renderer.material.color = alignment == Alignment.Ally ? Color.green : Color.red;
         return battler;
     }

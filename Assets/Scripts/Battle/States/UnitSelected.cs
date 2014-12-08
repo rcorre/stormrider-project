@@ -35,5 +35,15 @@ public class UnitSelected : State<Battle> {
                 _overlay.DrawPath(_movePath);
             }
         }
+
+        if (Input.GetMouseButtonUp(0) && _movePath != null) {
+            battle.states.Push(new MoveUnit(_battler, _movePath));
+        }
+    }
+
+    public override void Exit(Battle obj) {
+        base.Exit(obj);
+        _overlay.ClearPath();
+        _overlay.ClearHighlight();
     }
 }
