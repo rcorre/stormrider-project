@@ -757,6 +757,7 @@ GameObject:
   - 92: {fileID: 2117101777}
   - 124: {fileID: 2117101776}
   - 81: {fileID: 2117101775}
+  - 114: {fileID: 2117101780}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -823,9 +824,29 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2117101774}
-  m_LocalRotation: {x: .269134939, y: -.236742243, z: .0684346333, w: .931040406}
-  m_LocalPosition: {x: 27.4469624, y: 18.2688942, z: -18.9067898}
+  m_LocalRotation: {x: .36289072, y: .0145524247, z: -.00567639153, w: .931700766}
+  m_LocalPosition: {x: 20.0330009, y: 11.4840002, z: -11.5299997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &2117101780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2117101774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3267e53701553194186695d06eb7f7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinPos: {x: 0, y: 0, z: 0}
+  MaxPos: {x: 25, y: 25, z: 25}
+  FocalPoint: {x: 0, y: 0, z: 0}
+  MinFov: 5
+  MaxFov: 20
+  ScrollSpeed: 20
+  ZoomSpeed: 200
+  RotateSpeed: 100
+  MouseDragSpeed: .25
