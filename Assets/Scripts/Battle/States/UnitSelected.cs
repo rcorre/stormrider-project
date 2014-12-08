@@ -15,10 +15,15 @@ public class UnitSelected : State<Battle> {
 
     public override void Start(Battle battle) {
         base.Start(battle);
+	_overlay = GameObject.FindObjectOfType<TileOverlay>();
+    }
+
+    public override void Enter(Battle battle) {
+        base.Enter(battle);
         _pathFinder = new PathFinder(battle.map, _battler);
 	_moveRange = _pathFinder.TilesInRange;
-	_overlay = GameObject.FindObjectOfType<TileOverlay>();
 	_overlay.HighlightTiles(_moveRange, TileOverlay.HighlightType.Move);
+	_overlay.ShowFocus(_battler.tile);
     }
 
     public override void Update(Battle battle) {
@@ -44,7 +49,6 @@ public class UnitSelected : State<Battle> {
     public override void Exit(Battle obj) {
         base.Exit(obj);
         _movePath = null;
-        _overlay.ClearPath();
-        _overlay.ClearHighlight();
+        _overlay.ClearAll();
     }
 }

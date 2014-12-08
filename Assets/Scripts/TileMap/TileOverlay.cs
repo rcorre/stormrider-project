@@ -17,6 +17,7 @@ public class TileOverlay : MonoBehaviour {
 	Ranged
     }
 
+    public Transform FocusOverlay;
     public GameObject MovementOverlay;
     public GameObject AttackOverlay;
     public GameObject WalkIcon, MeleeIcon, RangedIcon;
@@ -53,6 +54,11 @@ public class TileOverlay : MonoBehaviour {
         }
     }
 
+    public void ShowFocus(Tile tile) {
+        FocusOverlay.gameObject.SetActive(true);
+        FocusOverlay.position = _tileMapMesh.TileSurfaceCenter(tile);
+    }
+
     public void DisplayWalkIcon(int moveCost) {
         SetIcon(IconMode.Walk);
         _mouseIcon.guiText.text = moveCost.ToString();
@@ -85,10 +91,15 @@ public class TileOverlay : MonoBehaviour {
         _lineRenderer.SetVertexCount(0);
     }
 
+    public void ClearFocus() {
+        FocusOverlay.gameObject.SetActive(false);
+    }
+
     public void ClearAll() {
         ClearHighlight();
         ClearIcon();
         ClearPath();
+        ClearFocus();
     }
 
     private void SetIcon(IconMode mode) {

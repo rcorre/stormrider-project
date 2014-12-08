@@ -22,12 +22,16 @@ public class Battler : MonoBehaviour {
         return 1;	//TODO
     }
 
-    public int MoveRange { get { return 5; } } //TODO
+    public int MoveRange { 
+        get { 
+            return hasMoveAction ? 5 : 0; 
+        } 
+    } //TODO
 
     /// <summary>
     /// speed to move across tilemap. visual only, does not affect mechanics
     /// </summary>
-    public float TileMapMoveSpeed { get { return 100f; } }
+    public float TileMapMoveSpeed { get { return 50f; } }
 
     public float ObjectHeight {
         get {
