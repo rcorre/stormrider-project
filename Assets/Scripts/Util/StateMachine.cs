@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-public abstract class StateMachine<T> {
+public class StateMachine<T> {
     private Stack<State<T>> _stack;
     private T _owner;
 
