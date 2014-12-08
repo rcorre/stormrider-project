@@ -41,8 +41,13 @@ public class UnitSelected : State<Battle> {
             }
         }
 
-        if (Input.GetMouseButtonUp(0) && _movePath != null) {
-            battle.states.Push(new MoveUnit(_battler, _movePath));
+        if (Input.GetMouseButtonUp(0)) {
+            if (_movePath == null) {
+                battle.states.Pop();
+            }
+            else {
+                battle.states.Push(new MoveUnit(_battler, _movePath));
+            }
         }
     }
 

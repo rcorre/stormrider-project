@@ -22,6 +22,7 @@ public class StateMachine<T> {
     }
 
     public void Pop() {
+        CurrentState.Exit(_owner);
         CurrentState.End(_owner);
         _stack.Pop();
     }
