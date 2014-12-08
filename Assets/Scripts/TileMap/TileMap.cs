@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(TileMapGenerator))]
 [RequireComponent(typeof(TileMapMesh))]
@@ -39,4 +39,18 @@ public class TileMap : MonoBehaviour {
         }
         return _tiles[row, col];
     }
+
+    public Tile[] TileNeighbors(int row, int col) {
+        List<Tile> neighbors = new List<Tile>();
+        if (row > 0) { neighbors.Add(_tiles[row - 1, col]); }
+        if (col > 0) { neighbors.Add(_tiles[row, col - 1]); }
+        if (row < numRows - 1) { neighbors.Add(_tiles[row + 1, col]); }
+        if (col < numCols - 1) { neighbors.Add(_tiles[row, col + 1]); }
+        return neighbors.ToArray();
+    }
+
+    public Tile[] TileNeighbors(Tile tile) {
+        return TileNeighbors(tile.row, tile.col);
+    }
+
 }

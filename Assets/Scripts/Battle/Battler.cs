@@ -14,6 +14,15 @@ public class Battler : MonoBehaviour {
     public int stamina { get; private set; }
     public Tile tile { get; private set; }
 
+    /// <summary>
+    /// cost to move onto the given tile
+    /// </summary>
+    public int MoveCost(Tile tile) {
+        return 1;	//TODO
+    }
+
+    public int MoveRange { get { return 5; } } //TODO
+
     public void PlaceOnTile(Tile newTile) {
         if (tile != null) { // remove self from previous tile
             tile.battler = null;
