@@ -13,6 +13,7 @@ public class Battler : MonoBehaviour {
     public int hp { get; private set; }
     public int stamina { get; private set; }
     public Tile tile { get; private set; }
+    public bool hasMoveAction { get; set; }
 
     /// <summary>
     /// cost to move onto the given tile
@@ -51,6 +52,7 @@ public class Battler : MonoBehaviour {
         battler.character = data;
         battler.alignment = alignment;
         battler.PlaceOnTile(startTile);
+        battler.hasMoveAction = true;
         // REMOVE THIS LATER
         obj.renderer.material.color = alignment == Alignment.Ally ? Color.green : Color.red;
         return battler;

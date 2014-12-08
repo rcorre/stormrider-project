@@ -16,6 +16,7 @@ public class MoveUnit : State<Battle> {
     public override void Start(Battle battle) {
         base.Start(battle);
         _mesh = battle.map.mesh;
+        _battler.hasMoveAction = false;
     }
 
     public override void Update(Battle battle) {

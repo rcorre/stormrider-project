@@ -24,7 +24,7 @@ public class UnitSelected : State<Battle> {
     public override void Update(Battle battle) {
         base.Update(battle);
         var tile = battle.map.mouse.tileUnderMouse;
-        if (tile != null && _tileUnderMouse != tile) { // new tile under mouse
+        if (tile != null && _tileUnderMouse != tile && _battler.hasMoveAction) { // new tile under mouse
             if (_pathFinder.CostToTile(tile) <= _battler.MoveRange) {
                 _movePath = _pathFinder.PathToTile(tile);
             }
@@ -43,6 +43,7 @@ public class UnitSelected : State<Battle> {
 
     public override void Exit(Battle obj) {
         base.Exit(obj);
+        _movePath = null;
         _overlay.ClearPath();
         _overlay.ClearHighlight();
     }
