@@ -13,6 +13,10 @@ public class StateMachine<T> {
 
     public State<T> CurrentState { get { return _stack.Peek(); } }
 
+    /// <summary>
+    /// push the provided states onto the state stack
+    /// </summary>
+    /// <param name="states"></param>
     public void Push(params State<T>[] states) {
         // calls exit() on current state if it was enter()ed
         CurrentState.Deactivate(_owner); 
@@ -21,10 +25,22 @@ public class StateMachine<T> {
         }
     }
 
+    /// <summary>
+    /// pop the current state off of the state stack
+    /// </summary>
     public void Pop() {
         CurrentState.Exit(_owner);
         CurrentState.End(_owner);
         _stack.Pop();
+    }
+
+    /// <summary>
+    /// equivalent to a Pop followed by a Push
+    /// </summary>
+    /// <param name="states"></param>
+    public void Replace(params State<T>[] states) {
+        Pop();
+        Push(states);
     }
 
     public void Update() {
