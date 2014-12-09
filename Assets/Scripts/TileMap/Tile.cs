@@ -19,6 +19,8 @@ public class Tile {
         }
     }
 
+    public bool empty { get { return _battler == null; } }
+
     public Tile(int row, int col, int elevation) {
         this.row = row;
         this.col = col;

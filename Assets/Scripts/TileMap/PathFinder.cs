@@ -43,7 +43,10 @@ public class PathFinder {
         List<Tile> tilesInRange = new List<Tile>();
         for (int i = 0; i < numNodes; i++) {
             if (_distance[i] <= battler.MoveRange && i != startIndex) {
-                tilesInRange.Add(IndexToTile(i));
+                var tile = IndexToTile(i);
+                if (tile.empty) { // tile must be empty to move on it
+                    tilesInRange.Add(IndexToTile(i));
+                }
             }
         }
         TilesInRange = tilesInRange.ToArray();
@@ -59,7 +62,7 @@ public class PathFinder {
 
     public Stack<Tile> PathToTile(Tile endTile) {
         int idx = TileToIndex(endTile);
-        if (_distance[idx] == int.MaxValue) {
+        if (_distance[idx] == int.MaxValue || !endTile.empty) {
             return null;
         }
         else {
