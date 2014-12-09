@@ -29,8 +29,9 @@ public class UnitSelected : State<Battle> {
     public override void Update(Battle battle) {
         base.Update(battle);
         var tile = battle.map.mouse.tileUnderMouse;
-        if (tile != null && _tileUnderMouse != tile && _battler.hasMoveAction) { // new tile under mouse
-            if (_pathFinder.CostToTile(tile) <= _battler.MoveRange) {
+        if (tile != null && _tileUnderMouse != tile) { // new tile under mouse
+            _tileUnderMouse = tile;
+            if (_battler.hasMoveAction && _pathFinder.CostToTile(tile) <= _battler.MoveRange) {
                 _movePath = _pathFinder.PathToTile(tile);
             }
             else {
@@ -42,11 +43,14 @@ public class UnitSelected : State<Battle> {
         }
 
         if (Input.GetMouseButtonUp(0)) {
-            if (_movePath == null) {
-                battle.states.Pop();
+            if (tile.battler != null) {
+                battle.states.Push(new SelectFeat(_battler, tile));
+            }
+            else if (_movePath != null) {
+                battle.states.Push(new MoveUnit(_battler, _movePath));
             }
             else {
-                battle.states.Push(new MoveUnit(_battler, _movePath));
+                battle.states.Pop();
             }
         }
     }

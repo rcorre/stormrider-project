@@ -23,10 +23,10 @@ public class Battler : MonoBehaviour {
     }
 
     public int MoveRange { 
-        get { 
+        get { //TODO
             return hasMoveAction ? 5 : 0; 
         } 
-    } //TODO
+    } 
 
     /// <summary>
     /// speed to move across tilemap. visual only, does not affect mechanics
@@ -37,6 +37,11 @@ public class Battler : MonoBehaviour {
         get {
             return GetComponent<Collider>().bounds.size.y;
         }
+    }
+
+    public bool FriendlyTo(Battler other) {
+        return alignment == other.alignment || 
+            other.alignment == Alignment.Neutral && alignment == Alignment.Ally;
     }
 
     public void PlaceOnTile(Tile newTile) {
