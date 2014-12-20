@@ -13,7 +13,8 @@ public class DataManager : MonoBehaviour {
     void Awake() {
         _store = new Dictionary<Type, Dictionary<string, object>>();
 	// order matters, cannot load characters before talents or equipment
-        Load<TalentData>("talents", x => x.key);
+        Load<TechniqueData>("talents/technique", x => x.key);
+        Load<EffectData>("talents/effect", x => x.key);
         Load<EquipmentMaterial>("materials", x => x.key);
         Load<WeaponData>("weapons", x => x.key);
         Load<ArmorData>("armor", x => x.key);
@@ -50,15 +51,26 @@ public class DataManager : MonoBehaviour {
     /// <param name="key">key of data within store</param>
     /// <returns>cached data matching key and type</returns>
     public static T Fetch<T>(string key) {
-	Type type = typeof(T);
-	Util.Assert(_store.ContainsKey(type), "no data of type " + type + "has been loaded");
-	Util.Assert(_store[type].ContainsKey(key), "key " + key + " not found in store of " + type);
-        return (T)_store[typeof(T)][key];
+        Type type = typeof(T);
+        return (T)Fetch(typeof(T), key);
+    }
+
+    /// <summary>
+    /// retrieve data that has already been Loaded (and cached)
+    /// </summary>
+    /// <typeparam name="T">type data was deserialized into when loaded</typeparam>
+    /// <param name="type">type of data class</param>
+    /// <param name="key">key of data within store</param>
+    /// <returns>cached data matching key and type</returns>
+    public static object Fetch(Type type, string key) {
+        Util.Assert(_store.ContainsKey(type), "no data of type " + type + "has been loaded");
+        Util.Assert(_store[type].ContainsKey(key), "key " + key + " not found in store of " + type);
+        return _store[type][key];
     }
 
     public static IEnumerable<T> FetchAll<T>() {
-	Type type = typeof(T);
-	Util.Assert(_store.ContainsKey(type), "no data of type " + type + "has been loaded");
+        Type type = typeof(T);
+        Util.Assert(_store.ContainsKey(type), "no data of type " + type + "has been loaded");
         return _store[typeof(T)].Values.Cast<T>();
     }
 }

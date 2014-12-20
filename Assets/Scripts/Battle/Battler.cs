@@ -58,11 +58,6 @@ public class Battler : MonoBehaviour {
         tile = newTile;
     }
 
-    public void ApplyEffect(Effect effect) {
-        hp = Mathf.Clamp(hp - effect.adjustHp, 0, character.maxHp);
-	stamina = Mathf.Clamp(hp - effect.adjustStamina, 0, character.maxStamina);
-    }
-
     public static Battler Create(CharacterData data, Alignment alignment, Tile startTile) {
         var obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
         var battler = obj.AddComponent<Battler>();

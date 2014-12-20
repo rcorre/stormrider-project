@@ -1,0 +1,23 @@
+[
+	{
+		"key"       : "wound",
+		"name"      : "Wound",
+		"type"      : "Melee",
+		"attribute" : "Dex",
+		"apCost"    : 2,
+		"cooldown"  : 0,
+		"stamina"   : 4,
+		"effect"    : "Bleed"
+	},
+
+	{
+		"key"       : "combust",
+		"name"      : "Combust",
+		"type"      : "Magic",
+		"attribute" : "Int",
+		"apCost"    : 2,
+		"cooldown"  : 0,
+		"stamina"   : 4,
+		"effect"    : "Burn"
+	}
+]
