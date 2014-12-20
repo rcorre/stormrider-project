@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum Alignment {
     Ally,
@@ -14,6 +15,8 @@ public class Battler : MonoBehaviour {
     public int stamina { get; private set; }
     public Tile tile { get; private set; }
     public bool hasMoveAction { get; set; }
+
+    private List<Condition> _conditions = new List<Condition>();
 
     /// <summary>
     /// cost to move onto the given tile
@@ -53,6 +56,11 @@ public class Battler : MonoBehaviour {
         transform.position = new Vector3(surface.x, surface.y + ObjectHeight / 2, surface.z);
         newTile.battler = this;
         tile = newTile;
+    }
+
+    public void ApplyEffect(Effect effect) {
+        hp = Mathf.Clamp(hp - effect.adjustHp, 0, character.maxHp);
+	stamina = Mathf.Clamp(hp - effect.adjustStamina, 0, character.maxStamina);
     }
 
     public static Battler Create(CharacterData data, Alignment alignment, Tile startTile) {

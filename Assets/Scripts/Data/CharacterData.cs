@@ -32,4 +32,16 @@ public class CharacterData {
     public Weapon mainHand;
     public Weapon offHand;
     public Armor[] armor;
+
+    public int maxHp {
+        get { // TODO
+            return attributes[CharacterAttribute.Con] * 4;
+        }
+    }
+
+    public int maxStamina {
+        get { // TODO
+            return attributes[CharacterAttribute.Con] * 1;
+        }
+    }
 }
