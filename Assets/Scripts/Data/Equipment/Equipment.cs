@@ -5,29 +5,31 @@ using System.Linq;
 public abstract class Equipment {
     const string toStringFmt = "{0} {1}"; // {model} {material}
 
-    public int weight { get; private set; }
-    public int value { get; private set; }
-    public ArmorClass armorClass { get; private set; }
-    public ElementSet resistance { get; private set; }
+    public readonly string slot;
+    public readonly int weight;
+    public readonly int value;
+    public readonly float attunement;
+    public readonly ElementSet armorClass;
 
-    public EquipmentData model { get; private set; }
-    public EquipmentMaterial material { get; private set; }
+    public readonly EquipmentDesign design;
+    public readonly EquipmentMaterial material;
 
-    public Equipment(EquipmentData model, EquipmentMaterial material) {
-        this.model = model;
+    public Equipment(EquipmentDesign design, EquipmentMaterial material) {
+        this.design = design;
         this.material = material;
 
-        weight = (int)(model.weight * material.weight);
-        value = (int)(model.value * material.value);
-        armorClass = model.armorClass;
+        slot       = design.slot;
+        weight     = (int)(design.weight * material.weight);
+        value      = (int)(design.value * material.value);
+        attunement = design.attunement * material.attunement;
 
-        resistance = new ElementSet();
+        armorClass = new ElementSet();
 	foreach(var el in ElementSet.EnumKeys) {
-	    resistance[el] = (int)(model.resistance * material.resist[el]);
+	    armorClass[el] = (int)(design.armorClass * material.defense[el]);
 	}
     }
 
     public override string ToString() {
-        return string.Format(toStringFmt, material.name, model.name);
+        return string.Format(toStringFmt, material.name, design.name);
     }
 }

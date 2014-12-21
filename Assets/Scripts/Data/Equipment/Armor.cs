@@ -5,13 +5,8 @@ using UnityEngine;
 
 [fsObject(Converter=typeof(ArmorConverter))]
 public class Armor : Equipment {
-    public string slot { get; private set; }
-
-    public Armor(ArmorData model, EquipmentMaterial material)
-        : base(model, material) 
-    {
-        slot = model.slot;
-    }
+    public Armor(ArmorDesign design, EquipmentMaterial material)
+        : base(design, material) { }
 }
 
 public class ArmorConverter : fsConverter {
@@ -23,7 +18,7 @@ public class ArmorConverter : fsConverter {
         var input = (Armor)instance;
 
         var output = new Dictionary<string, fsData>() {
-	    { "model", new fsData(input.model.key) },
+	    { "design", new fsData(input.design.key) },
 	    { "material", new fsData(input.material.key) }
         };
 
@@ -38,9 +33,9 @@ public class ArmorConverter : fsConverter {
         }
 
         var input = storage.AsDictionary;
-        var model = DataManager.Fetch<ArmorData>(input["model"].AsString);
+        var design = DataManager.Fetch<ArmorDesign>(input["design"].AsString);
         var material = DataManager.Fetch<EquipmentMaterial>(input["material"].AsString);
-        instance = new Armor(model, material);
+        instance = new Armor(design, material);
         return fsFailure.Success;
     }
 

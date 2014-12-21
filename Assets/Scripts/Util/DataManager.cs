@@ -16,8 +16,8 @@ public class DataManager : MonoBehaviour {
         Load<TechniqueData>("talents/technique", x => x.key);
         Load<EffectData>("talents/effect", x => x.key);
         Load<EquipmentMaterial>("materials", x => x.key);
-        Load<WeaponData>("weapons", x => x.key);
-        Load<ArmorData>("armor", x => x.key);
+        Load<WeaponDesign>("weapons", x => x.key);
+        Load<ArmorDesign>("armor", x => x.key);
         Load<CharacterData>("characters", x => x.name);
     }
 

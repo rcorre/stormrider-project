@@ -24,16 +24,16 @@
 				"cha": 6
 			},
 			"mainHand": {
-				"model": "longSword",
+				"design": "longSword",
 				"material": "iron"
 			},
 			"offHand": {
-				"model": "buckler",
+				"design": "buckler",
 				"material": "oak"
 			},
 			"armor": [
 				{
-					"model": "cuirass",
+					"design": "cuirass",
 					"material": "iron"
 				}
 			],
@@ -42,8 +42,7 @@
 					"name": "Slash",
 					"talents": [
 						{ "key": "strike", "rank": 2},
-						{ "key": "wound", "rank": 1},
-						{ "key": "feint", "rank": 2}
+						{ "key": "wound", "rank": 1}
 					]
 				}
 			],

@@ -12,17 +12,17 @@
 			"wis": 4,
 			"cha": 6
 		},
-		"mainHand": {
-			"model"    : "longSword",
+		"mainHand"     : {
+			"design"   : "longSword",
 			"material" : "iron"
 		},
-		"offHand": {
-			"model"    : "buckler",
+		"offHand"      : {
+			"design"   : "buckler",
 			"material" : "oak"
 		},
 		"armor": [
 			{
-				"model"    : "cuirass",
+				"design"   : "cuirass",
 				"material" : "iron"
 			}
 		],

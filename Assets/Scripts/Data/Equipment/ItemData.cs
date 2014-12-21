@@ -12,29 +12,30 @@ public enum AmmoType {
 }
 
 public abstract class ItemData {
-    public readonly string key; /// <summary> unique id, unchanged even if name changes </summary>
-    public readonly string name; /// <summary> name shown in ui </summary>
+    /// <summary> unique id, unchanged even if name changes </summary>
+    public readonly string key;
+    /// <summary> name shown in ui </summary>
+    public readonly string name;
 
     public readonly int weight;
     public readonly int value;
 }
 
-public class EquipmentData : ItemData {
-    public readonly ArmorClass armorClass;
-    public readonly int resistance;
-}
-
-public class ArmorData : EquipmentData {
+public class EquipmentDesign : ItemData {
     public readonly string slot;
+    public readonly float attunement;
+    public readonly int armorClass;
 }
 
-public class WeaponData : EquipmentData {
+public class ArmorDesign : EquipmentDesign {
+}
+
+public class WeaponDesign : EquipmentDesign {
+    public readonly CharacterAttribute attribute;
     public readonly WeaponStyle style;
-    public readonly AttackType attackType;
     public readonly Element element;
     public readonly AmmoType ammoType;
     public readonly DiceRoll damage;
-    public readonly int accuracy;
     public readonly int minRange;
     public readonly int maxRange;
 }

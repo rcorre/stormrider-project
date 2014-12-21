@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -13,7 +14,7 @@ public struct DiceRoll {
     private int _bonus;
 
     static DiceRoll() {
-	RollRegex = new Regex(@"^(?<dice>\d+)\s*d\s*(?<sides>\d+)\s*[+]\s*(?<bonus>\d+)");
+	RollRegex = new Regex(@"^(?<dice>\d+)\s*d\s*(?<sides>\d+)\s*[+]?\s*(?<bonus>\d+)?");
     }
 
     /// <summary>
@@ -27,7 +28,7 @@ public struct DiceRoll {
 
         _numDice  = int.Parse(match.Groups["dice"].Value);
         _numSides = int.Parse(match.Groups["sides"].Value);
-        _bonus    = int.Parse(match.Groups["bonus"].Value);
+        _bonus = (match.Groups["bonus"].Success) ? int.Parse(match.Groups["bonus"].Value) : 0;
     }
 
     public DiceRoll(int numDice, int numSides, int bonus) {

@@ -11,9 +11,13 @@ public class EquipmentMaterial {
     /// <summary>
     /// multiplies damage for the corresponding element
     /// </summary>
-    public readonly ElementMultiplier damage;
+    public readonly ElementMultiplier attack;
     /// <summary>
     /// multiplies resistance for the corresponding element
     /// </summary>
-    public readonly ElementMultiplier resist;
+    public readonly ElementMultiplier defense;
+    /// <summary>
+    /// effectiveness as a spellcasting medium
+    /// </summary>
+    public readonly float attunement;
 }

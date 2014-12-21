@@ -4,22 +4,23 @@ using FullSerializer;
 
 [fsObject(Converter=typeof(WeaponConverter))]
 public class Weapon : Equipment {
-    public WeaponStyle style { get; private set; }
-    public AttackType attackType { get; private set; }
-    public Element element { get; private set; }
-    public DiceRoll damage { get; private set; }
-    public int accuracy { get; private set; }
-    public AmmoType ammoType { get; private set; }
+    public readonly Element element;
+    public readonly AmmoType ammoType;
+    public readonly WeaponStyle style;
+    public readonly int minRange, maxRange;
+    public readonly DiceRoll damage;
+    public readonly CharacterAttribute attribute;
 
-    public Weapon(WeaponData model, EquipmentMaterial material)
-        : base(model, material) 
+    public Weapon(WeaponDesign design, EquipmentMaterial material)
+        : base(design, material) 
     {
-        style      = model.style;
-        attackType = model.attackType;
-        element    = model.element;
-        damage     = model.damage * material.damage[element];
-        accuracy   = model.accuracy;
-        ammoType   = model.ammoType;
+        element   = design.element;
+        ammoType  = design.ammoType;
+        style     = design.style;
+        minRange  = design.minRange;
+        maxRange  = design.maxRange;
+        damage    = design.damage * material.attack[element];
+        attribute = design.attribute;
     }
 }
 
@@ -32,7 +33,7 @@ public class WeaponConverter : fsConverter {
         var input = (Weapon)instance;
 
         var output = new Dictionary<string, fsData>() {
-	    { "model", new fsData(input.model.key) },
+	    { "model", new fsData(input.design.key) },
 	    { "material", new fsData(input.material.key) }
         };
 
@@ -47,9 +48,10 @@ public class WeaponConverter : fsConverter {
         }
 
         var input = storage.AsDictionary;
-        var model = DataManager.Fetch<WeaponData>(input["model"].AsString);
+        if (!input.ContainsKey("design")) { UnityEngine.Debug.Log(storage.AsString); }
+        var design = DataManager.Fetch<WeaponDesign>(input["design"].AsString);
         var material = DataManager.Fetch<EquipmentMaterial>(input["material"].AsString);
-        instance = new Weapon(model, material);
+        instance = new Weapon(design, material);
         return fsFailure.Success;
     }
 
