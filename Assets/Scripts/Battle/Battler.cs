@@ -9,7 +9,7 @@ public enum Alignment {
 }
 
 public class Battler : MonoBehaviour {
-    public CharacterData character { get; private set; }
+    public Character character { get; private set; }
     public Alignment alignment { get; private set; }
     public int hp { get; private set; }
     public int stamina { get; private set; }
@@ -58,7 +58,7 @@ public class Battler : MonoBehaviour {
         tile = newTile;
     }
 
-    public static Battler Create(CharacterData data, Alignment alignment, Tile startTile) {
+    public static Battler Create(Character data, Alignment alignment, Tile startTile) {
         var obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
         var battler = obj.AddComponent<Battler>();
         battler.character = data;

@@ -16,6 +16,14 @@ public enum Element {
     Light
 }
 
+public static class ElementExtensions {
+    public static bool IsPhysical(this Element element) {
+        return element == Element.Slash ||
+               element == Element.Crush ||
+	       element == Element.Pierce;
+    }
+}
+
 /// <summary>
 /// Maps each element to an int (for damage/resistance)
 /// </summary>

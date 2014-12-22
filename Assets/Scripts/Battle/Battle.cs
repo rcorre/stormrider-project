@@ -30,7 +30,7 @@ public class Battle : MonoBehaviour {
         for (int i = 0; i < playerCharacters.Count && i < battleData.deployPoints.Length; i++) {
 	    var name = playerCharacters[i];
 	    var coord = battleData.deployPoints[i];
-            var charData = DataManager.Fetch<CharacterData>(name);
+            var charData = DataManager.Fetch<Character>(name);
 	    var tile = map.TileAt(coord.row, coord.col);
 	    allies.Add(Battler.Create(charData, Alignment.Ally, tile));
         }

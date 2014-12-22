@@ -7,10 +7,10 @@ public abstract class Enumap<K,V> : IJsonDict {
     public readonly int size;
     private V[] _store;
 
-    public Enumap() {
+    public Enumap(V[] store = null) {
         Util.Assert(typeof(K).IsEnum, "Enumap expects T : enum, got " + typeof(K));
 	size = Enum.GetValues(typeof(K)).Length;
-	_store = new V[size];
+	_store = store == null ? new V[size] : store;
     }
 
     public V this[K key] {

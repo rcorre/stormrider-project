@@ -4,7 +4,7 @@ using System.Collections;
 public class BattleData {
     public readonly NPCInstance[] npcs;
     public readonly TileCoord[] deployPoints;
-    public readonly CharacterData[] npcData;
+    public readonly Character[] npcData;
 }
 
 public struct NPCInstance {
