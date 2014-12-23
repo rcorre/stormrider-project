@@ -1,7 +1,7 @@
 [
 	{
 		"name"  : "Myron",
-		"race"  : "Human",
+		"race"  : "human",
 		"level" : 2,
 		"xp"    : 10,
 		"attributes": {

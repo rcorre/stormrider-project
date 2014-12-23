@@ -13,7 +13,7 @@ public enum CharacterAttribute {
 
 [fsObject(Converter = typeof(AttributeSetConverter))]
 public class AttributeSet : Enumap<CharacterAttribute, int> { }
-public class AttributeSetConverter : DictConverter<AttributeSet> { }
+class AttributeSetConverter : DictConverter<AttributeSet> { }
 
 public class Character {
     #region const
@@ -30,18 +30,39 @@ public class Character {
     #endregion
 
     #region base values
-    public string name { get; private set; }
+    [fsProperty(Name="race")]
+    private string raceKey {
+        get { return race.key; }
+        set { race = DataManager.Fetch<Race>(value); }
+    }
+    [fsIgnore]
     public Race race { get; private set; }
+
+    [fsProperty]
+    public string name { get; private set; }
+    [fsProperty]
     public int level { get; private set; }
+    [fsProperty]
     public int xp { get; private set; }
 
+    [fsProperty]
     public AttributeSet baseAttributes { get; private set; }
+    [fsProperty]
     public Feat[] feats { get; private set; }
+    [fsProperty]
     public Archetype[] archetypes { get; private set; }
 
+    [fsProperty]
     public Weapon mainHand { get; private set; }
+    [fsProperty]
     public Weapon offHand { get; private set; }
+    [fsProperty]
     public Armor[] armor { get; private set; }
+    #endregion
+
+    #region dynamic values
+    public int health { get; private set; }
+    public int stamina { get; private set; }
     #endregion
 
     #region calculated stats
@@ -54,11 +75,6 @@ public class Character {
     public int willpower { get; private set; }
     public int weightCapacity { get; private set; }
     public int weightCarried { get; private set; }
-    #endregion
-
-    #region dynamic values
-    public int health { get; private set; }
-    public int stamina { get; private set; }
     #endregion
 
     #region public methods

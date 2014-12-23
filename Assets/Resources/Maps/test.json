@@ -12,7 +12,7 @@
 	"npcData": [
 		{
 			"name": "Some Guy",
-			"race": "Human",
+			"race": "human",
 			"level": 1,
 			"xp": 10,
 			"attributes": {

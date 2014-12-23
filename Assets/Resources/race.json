@@ -1,0 +1,32 @@
+[
+	{
+		"key"            : "human",
+		"name"           : "Human",
+		"speed"          : 5,
+		"initiative"     : 10,
+		"health"         : 10,
+		"stamina"        : 5,
+		"weightCapacity" : 20,
+		"fortitude"      : 5,
+		"willpower"      : 5,
+		"attributes": {
+			"str": 5,
+			"dex": 5,
+			"con": 5,
+			"int": 5,
+			"wis": 5,
+			"cha": 5
+		},
+		"baseArmor": {
+			"Slash"    : 0,
+			"Crush"    : 0,
+			"Pierce"   : 0,
+			"Fire"     : 0,
+			"Ice"      : 0,
+			"Electric" : 0,
+			"Earth"    : 0,
+			"Dark"     : 0,
+			"Light"    : 0
+		}
+	}
+]
