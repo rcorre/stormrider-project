@@ -4,7 +4,7 @@
 		"race"  : "human",
 		"level" : 2,
 		"xp"    : 10,
-		"attributes": {
+		"baseAttributes": {
 			"str": 5,
 			"dex": 4,
 			"con": 3,
