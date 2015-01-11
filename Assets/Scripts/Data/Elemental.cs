@@ -9,8 +9,8 @@ public enum Element {
     Crush,
     Pierce,
     Fire,
-    Ice,
-    Electric,
+    Water,
+    Air,
     Earth,
     Dark,
     Light

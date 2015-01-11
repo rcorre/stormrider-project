@@ -78,10 +78,7 @@ public class Character {
     #endregion
 
     #region public methods
-    #endregion
-
-    #region private methods
-    void RecalculateStats() {
+    public void RecalculateStats() {
 	// attributes
         effectiveAttributes = baseAttributes;
 
@@ -103,6 +100,8 @@ public class Character {
         willpower = race.willpower + effectiveAttributes[CharacterAttribute.Wis] / wisPerWillpower;
 
 	// min and max armor class
+        minArmorClass = new ElementSet();
+        maxArmorClass = new ElementSet();
         foreach (var element in ElementSet.EnumKeys) {
             var attr = element.IsPhysical() ? CharacterAttribute.Dex : CharacterAttribute.Wis;
             minArmorClass[element] = effectiveAttributes[attr] / apPerAc + race.baseArmor[element];
@@ -110,8 +109,11 @@ public class Character {
             foreach (var armorPiece in armor) {
                 maxAc += armorPiece.armorClass[element];
             }
-            maxArmorClass[element] = maxAc;
+            maxArmorClass[element] = Mathf.Max(maxAc, minArmorClass[element]);
         }
     }
+    #endregion
+
+    #region private methods
     #endregion
 }

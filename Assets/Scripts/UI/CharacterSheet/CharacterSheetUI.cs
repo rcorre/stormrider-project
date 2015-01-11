@@ -9,6 +9,7 @@ public class CharacterSheetUI : MonoBehaviour {
         get {
             if (_character == null && characterName != null) {
                 _character = DataManager.Fetch<Character>(characterName);
+                _character.RecalculateStats();
             }
             return _character;
         }

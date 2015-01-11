@@ -18,15 +18,15 @@
 			"cha": 5
 		},
 		"baseArmor": {
-			"Slash"    : 0,
-			"Crush"    : 0,
-			"Pierce"   : 0,
-			"Fire"     : 0,
-			"Ice"      : 0,
-			"Electric" : 0,
-			"Earth"    : 0,
-			"Dark"     : 0,
-			"Light"    : 0
+			"Slash"  : 3,
+			"Crush"  : 0,
+			"Pierce" : 0,
+			"Fire"   : 0,
+			"Water"  : 0,
+			"Air"    : 0,
+			"Earth"  : 0,
+			"Dark"   : 0,
+			"Light"  : 0
 		}
 	}
 ]

@@ -16,6 +16,9 @@ public class CharacterStatTextEditor : Editor {
             case CharacterStat.EffectiveAttribute:
                 statText.attribute = selectEnum<CharacterAttribute>(statText.attribute);
                 break;
+            case CharacterStat.ArmorClass:
+                statText.element = selectEnum<Element>(statText.element);
+                break;
         }
 
         EditorGUILayout.EndVertical();
