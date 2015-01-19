@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 
 public enum CharacterStat {
+    Name,
+    Level,
     BaseAttribute,
     EffectiveAttribute,
     ArmorClass
@@ -35,6 +37,12 @@ public class CharacterStatText : MonoBehaviour {
             case CharacterStat.ArmorClass:
                 txt = string.Format(armorClassFormat, 
                     _character.minArmorClass[element], _character.maxArmorClass[element]);
+                break;
+            case CharacterStat.Name:
+                txt = _character.name;
+                break;
+            case CharacterStat.Level:
+                txt = _character.level.ToString();
                 break;
             default:
                 break;

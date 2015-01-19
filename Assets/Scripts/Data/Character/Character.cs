@@ -20,11 +20,11 @@ public class Character {
     /// <summary>
     /// number of dex for +1 physical ac, amount of wis for +1 magical ac
     /// </summary>
-    const int apPerAc         = 3;
-    const int hpPerCon        = 1;
-    const int staminaPerCon   = 1;
-    const int conPerFortitude = 2;
-    const int wisPerWillpower = 2;
+    const int apPerAc              = 3;
+    const int hpPerCon             = 1;
+    const int staminaPerCon        = 1;
+    const int conPerFortitude      = 2;
+    const int wisPerWillpower      = 2;
     const int weightCapacityPerStr = 2;
     const int weightCapacityPerCon = 1;
     #endregion
