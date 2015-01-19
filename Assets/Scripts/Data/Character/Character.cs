@@ -25,6 +25,7 @@ public class Character {
     const int staminaPerCon        = 1;
     const int conPerFortitude      = 2;
     const int wisPerWillpower      = 2;
+    const int dexPerInitiative	   = 4;
     const int weightCapacityPerStr = 2;
     const int weightCapacityPerCon = 1;
     #endregion
@@ -75,19 +76,29 @@ public class Character {
     public int willpower { get; private set; }
     public int weightCapacity { get; private set; }
     public int weightCarried { get; private set; }
+    public float attunement { get; private set; }
+    public int initiative { get; private set; }
+
+    public int speed { get { return race.speed; } }
     #endregion
 
     #region public methods
+    public void FullRestore() {
+        health = maxHealth;
+        stamina = maxStamina;
+    }
+
     public void RecalculateStats() {
 	// attributes
         effectiveAttributes = baseAttributes;
 
-	// weight
+	// weight and attunement
         weightCapacity = race.weightCapacity +
             effectiveAttributes[CharacterAttribute.Str] * weightCapacityPerStr +
             effectiveAttributes[CharacterAttribute.Con] * weightCapacityPerCon;
 
         weightCarried = armor.Sum(x => x.weight) + mainHand.weight + offHand.weight;
+        attunement    = armor.Aggregate(1f, (total, piece) => total * piece.attunement);
 
 	// hp and stamina
         maxHealth  = race.health  + effectiveAttributes[CharacterAttribute.Con] * hpPerCon;
@@ -98,6 +109,9 @@ public class Character {
 	// fortitude and willpower
         fortitude = race.fortitude + effectiveAttributes[CharacterAttribute.Con] / conPerFortitude;
         willpower = race.willpower + effectiveAttributes[CharacterAttribute.Wis] / wisPerWillpower;
+
+	// initiative
+        initiative = race.initiative + effectiveAttributes[CharacterAttribute.Dex] / dexPerInitiative;
 
 	// min and max armor class
         minArmorClass = new ElementSet();

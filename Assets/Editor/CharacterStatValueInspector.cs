@@ -19,9 +19,26 @@ public class CharacterStatTextEditor : Editor {
             case CharacterStat.ArmorClass:
                 statText.element = selectEnum<Element>(statText.element);
                 break;
+            case CharacterStat.Health:
+            case CharacterStat.Stamina:
+            case CharacterStat.Experience:
+            case CharacterStat.Weight:
+                statText.showCurrent = selectBool("Show Current Value", statText.showCurrent);
+                break;
         }
 
         EditorGUILayout.EndVertical();
+    }
+
+    private bool selectBool(string label, bool current) {
+        EditorGUILayout.BeginHorizontal();
+
+        EditorGUILayout.PrefixLabel(label);
+        var selection = EditorGUILayout.Toggle(current);
+
+        EditorGUILayout.EndHorizontal();
+
+        return selection;
     }
 
     private T selectEnum<T>(Enum current) {
