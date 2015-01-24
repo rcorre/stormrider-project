@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolTipText: hello
+  toolTipText: Strength
 --- !u!1 &67897961
 GameObject:
   m_ObjectHideFlags: 0

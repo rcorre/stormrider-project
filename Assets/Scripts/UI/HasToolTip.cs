@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using System.Collections.Generic;
 
 [RequireComponent(typeof(RectTransform))]
 public class HasToolTip : MonoBehaviour {
@@ -12,28 +13,36 @@ public class HasToolTip : MonoBehaviour {
 
     void Awake() {
         _area = GetComponent<RectTransform>();
+	// grab manager in awake, it may be inactive during start
         _manager = FindObjectOfType<ToolTipManager>();
     }
 
     void Start() {
-	// hook up onMouseEnter handler to activate tooltip
+	// set up mouse handlers
+	var handlers = new List<EventTrigger.Entry>();
+
+	// set tooltip text on mouse enter
+	handlers.Add(CreateHandler(EventTriggerType.PointerEnter,
+	    (ev) => _manager.SetText(toolTipText)));
+
+	// clear tooltip on mouse leave
+	handlers.Add(CreateHandler(EventTriggerType.PointerExit,
+	    (ev) => _manager.ClearText()));
+
+	// attach an event trigger with the given delegates
         var trigger = gameObject.AddComponent<EventTrigger>();
-	var entry   = new EventTrigger.Entry();
-
-	entry.eventID  = EventTriggerType.PointerEnter;
-	entry.callback = new EventTrigger.TriggerEvent();
-
-	UnityAction<BaseEventData> callback = 
-	    new UnityAction<BaseEventData>(MouseEnterMethod);
-
-	entry.callback.AddListener(callback);
-
-	trigger.delegates = new List<EventTrigger.Entry>();
-	trigger.delegates.Add(entry);
+	trigger.delegates = handlers;
     }
 
-    public void MouseEnterMethod(BaseEventData baseEvent) {
-        Util.Assert(_manager != null, "manager null");
-        _manager.SetText(toolTipText);
+    // return an event trigger entry that calls action upon receiving an event of the given type 
+    EventTrigger.Entry CreateHandler(EventTriggerType type, Action<BaseEventData> action) {
+        var entry = new EventTrigger.Entry();
+        entry.eventID = type;
+
+        entry.callback = new EventTrigger.TriggerEvent();
+        var listener = new UnityAction<BaseEventData>(action);
+
+        entry.callback.AddListener(listener);
+        return entry;
     }
 }
