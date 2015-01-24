@@ -21,8 +21,8 @@ public enum CharacterStat {
 
 [RequireComponent(typeof(Text))]
 public class CharacterStatText : MonoBehaviour {
-    const string armorClassFormat   = "{0} - {1}"; // min - max
-    const string ratioFormat       = "{0}/{1}"; // min/max
+    const string armorClassFormat = "{0} - {1}"; // min - max
+    const string ratioFormat      = "{0}/{1}"; // min/max
     public CharacterStat stat;
     public CharacterAttribute attribute;
     public Element element;
