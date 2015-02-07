@@ -84,7 +84,6 @@ GameObject:
   - 224: {fileID: 30043110}
   - 222: {fileID: 30043112}
   - 114: {fileID: 30043111}
-  - 114: {fileID: 30043113}
   m_Layer: 5
   m_Name: Str
   m_TagString: Untagged
@@ -136,18 +135,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 30043109}
---- !u!114 &30043113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 30043109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toolTipText: Strength
 --- !u!1 &67897961
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +391,7 @@ GameObject:
   - 224: {fileID: 208437043}
   - 222: {fileID: 208437045}
   - 114: {fileID: 208437044}
+  - 114: {fileID: 208437046}
   m_Layer: 5
   m_Name: Pierce
   m_TagString: Untagged
@@ -455,6 +443,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 208437042}
+--- !u!114 &208437046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 208437042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Pierce
 --- !u!1 &216629864
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,6 +667,7 @@ GameObject:
   - 224: {fileID: 311725635}
   - 222: {fileID: 311725637}
   - 114: {fileID: 311725636}
+  - 114: {fileID: 311725638}
   m_Layer: 5
   m_Name: Water
   m_TagString: Untagged
@@ -718,6 +719,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 311725634}
+--- !u!114 &311725638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 311725634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Water
 --- !u!1 &372324476
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,6 +1709,7 @@ GameObject:
   - 224: {fileID: 815048421}
   - 222: {fileID: 815048423}
   - 114: {fileID: 815048422}
+  - 114: {fileID: 815048424}
   m_Layer: 5
   m_Name: Weight
   m_TagString: Untagged
@@ -1747,6 +1761,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 815048420}
+--- !u!114 &815048424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 815048420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Weight
 --- !u!1 &866395053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,6 +1783,7 @@ GameObject:
   - 224: {fileID: 866395054}
   - 222: {fileID: 866395056}
   - 114: {fileID: 866395055}
+  - 114: {fileID: 866395057}
   m_Layer: 5
   m_Name: Wis
   m_TagString: Untagged
@@ -1808,6 +1835,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 866395053}
+--- !u!114 &866395057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 866395053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Wisdom
 --- !u!1 &867150804
 GameObject:
   m_ObjectHideFlags: 0
@@ -2025,6 +2064,7 @@ GameObject:
   - 224: {fileID: 938324196}
   - 222: {fileID: 938324198}
   - 114: {fileID: 938324197}
+  - 114: {fileID: 938324199}
   m_Layer: 5
   m_Name: Willpower
   m_TagString: Untagged
@@ -2076,6 +2116,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 938324195}
+--- !u!114 &938324199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 938324195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Willpower
 --- !u!1 &952567315
 GameObject:
   m_ObjectHideFlags: 0
@@ -2086,6 +2138,7 @@ GameObject:
   - 224: {fileID: 952567316}
   - 222: {fileID: 952567318}
   - 114: {fileID: 952567317}
+  - 114: {fileID: 952567319}
   m_Layer: 5
   m_Name: Dark
   m_TagString: Untagged
@@ -2137,6 +2190,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 952567315}
+--- !u!114 &952567319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 952567315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Dark
 --- !u!1 &957644393
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,6 +2212,7 @@ GameObject:
   - 224: {fileID: 957644394}
   - 222: {fileID: 957644396}
   - 114: {fileID: 957644395}
+  - 114: {fileID: 957644397}
   m_Layer: 5
   m_Name: Air
   m_TagString: Untagged
@@ -2198,6 +2264,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 957644393}
+--- !u!114 &957644397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 957644393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Air
 --- !u!1 &999544733
 GameObject:
   m_ObjectHideFlags: 0
@@ -2365,6 +2443,7 @@ GameObject:
   - 224: {fileID: 1040957533}
   - 222: {fileID: 1040957535}
   - 114: {fileID: 1040957534}
+  - 114: {fileID: 1040957536}
   m_Layer: 5
   m_Name: Earth
   m_TagString: Untagged
@@ -2416,6 +2495,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1040957532}
+--- !u!114 &1040957536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1040957532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Earth
 --- !u!1 &1126919151
 GameObject:
   m_ObjectHideFlags: 0
@@ -2590,6 +2681,7 @@ GameObject:
   - 224: {fileID: 1187792280}
   - 222: {fileID: 1187792282}
   - 114: {fileID: 1187792281}
+  - 114: {fileID: 1187792283}
   m_Layer: 5
   m_Name: Light
   m_TagString: Untagged
@@ -2641,6 +2733,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1187792279}
+--- !u!114 &1187792283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1187792279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Light
 --- !u!1 &1207342242
 GameObject:
   m_ObjectHideFlags: 0
@@ -2718,6 +2822,7 @@ GameObject:
   - 224: {fileID: 1376400565}
   - 222: {fileID: 1376400567}
   - 114: {fileID: 1376400566}
+  - 114: {fileID: 1376400568}
   m_Layer: 5
   m_Name: Fire
   m_TagString: Untagged
@@ -2769,6 +2874,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1376400564}
+--- !u!114 &1376400568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1376400564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Fire
 --- !u!1 &1382854259
 GameObject:
   m_ObjectHideFlags: 0
@@ -2929,6 +3046,7 @@ GameObject:
   - 224: {fileID: 1413916291}
   - 222: {fileID: 1413916293}
   - 114: {fileID: 1413916292}
+  - 114: {fileID: 1413916294}
   m_Layer: 5
   m_Name: Initiative
   m_TagString: Untagged
@@ -2980,6 +3098,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1413916290}
+--- !u!114 &1413916294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1413916290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Initiative
 --- !u!1 &1417434797
 GameObject:
   m_ObjectHideFlags: 0
@@ -3303,6 +3433,7 @@ GameObject:
   - 224: {fileID: 1546354457}
   - 222: {fileID: 1546354459}
   - 114: {fileID: 1546354458}
+  - 114: {fileID: 1546354460}
   m_Layer: 5
   m_Name: Crush
   m_TagString: Untagged
@@ -3354,6 +3485,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1546354456}
+--- !u!114 &1546354460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1546354456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Crush
 --- !u!1 &1562250341
 GameObject:
   m_ObjectHideFlags: 0
@@ -3364,6 +3507,7 @@ GameObject:
   - 224: {fileID: 1562250344}
   - 222: {fileID: 1562250343}
   - 114: {fileID: 1562250342}
+  - 114: {fileID: 1562250345}
   m_Layer: 5
   m_Name: Int
   m_TagString: Untagged
@@ -3415,6 +3559,18 @@ RectTransform:
   m_AnchoredPosition: {x: -30.8464661, y: -12.7198486}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: .5, y: .5}
+--- !u!114 &1562250345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1562250341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Intellect
 --- !u!1 &1660400874
 GameObject:
   m_ObjectHideFlags: 0
@@ -3963,6 +4119,7 @@ GameObject:
   - 224: {fileID: 1829938752}
   - 222: {fileID: 1829938754}
   - 114: {fileID: 1829938753}
+  - 114: {fileID: 1829938755}
   m_Layer: 5
   m_Name: Speed
   m_TagString: Untagged
@@ -4014,6 +4171,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1829938751}
+--- !u!114 &1829938755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1829938751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Speed
 --- !u!1 &1920836972
 GameObject:
   m_ObjectHideFlags: 0
@@ -4173,6 +4342,7 @@ GameObject:
   - 224: {fileID: 1936804397}
   - 222: {fileID: 1936804399}
   - 114: {fileID: 1936804398}
+  - 114: {fileID: 1936804400}
   m_Layer: 5
   m_Name: Dex
   m_TagString: Untagged
@@ -4224,6 +4394,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1936804396}
+--- !u!114 &1936804400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1936804396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Dexterity
 --- !u!1 &1993225119
 GameObject:
   m_ObjectHideFlags: 0
@@ -4382,6 +4564,7 @@ GameObject:
   - 224: {fileID: 2060156664}
   - 222: {fileID: 2060156666}
   - 114: {fileID: 2060156665}
+  - 114: {fileID: 2060156667}
   m_Layer: 5
   m_Name: Con
   m_TagString: Untagged
@@ -4433,6 +4616,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2060156663}
+--- !u!114 &2060156667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2060156663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Constitution
 --- !u!1 &2061796377
 GameObject:
   m_ObjectHideFlags: 0
@@ -4525,6 +4720,7 @@ GameObject:
   - 224: {fileID: 2102726598}
   - 222: {fileID: 2102726600}
   - 114: {fileID: 2102726599}
+  - 114: {fileID: 2102726601}
   m_Layer: 5
   m_Name: Cha
   m_TagString: Untagged
@@ -4576,6 +4772,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2102726597}
+--- !u!114 &2102726601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2102726597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Charisma
 --- !u!1 &2106239384
 GameObject:
   m_ObjectHideFlags: 0
@@ -4586,6 +4794,7 @@ GameObject:
   - 224: {fileID: 2106239385}
   - 222: {fileID: 2106239387}
   - 114: {fileID: 2106239386}
+  - 114: {fileID: 2106239388}
   m_Layer: 5
   m_Name: Slash
   m_TagString: Untagged
@@ -4637,6 +4846,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2106239384}
+--- !u!114 &2106239388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2106239384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Slash
 --- !u!1 &2138465422
 GameObject:
   m_ObjectHideFlags: 0
@@ -4647,6 +4868,7 @@ GameObject:
   - 224: {fileID: 2138465423}
   - 222: {fileID: 2138465425}
   - 114: {fileID: 2138465424}
+  - 114: {fileID: 2138465426}
   m_Layer: 5
   m_Name: Fortitude
   m_TagString: Untagged
@@ -4698,3 +4920,15 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2138465422}
+--- !u!114 &2138465426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2138465422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f7066aba98ced459b256d514bd11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipText: Fortitude
