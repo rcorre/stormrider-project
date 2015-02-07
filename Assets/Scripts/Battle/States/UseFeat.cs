@@ -13,14 +13,13 @@ public class UseFeat : State<Battle> {
     }
 
     public override void Start(Battle battle) {
-        base.Start(battle);
+        var gui = GameObject.FindObjectOfType<BattleGUI>();
+        gui.SpawnText("Testing", BattleGUI.TextType.Damage, _target.transform.position);
     }
 
     public override void Update(Battle battle) {
-        base.Update(battle);
     }
 
     public override void Exit(Battle obj) {
-        base.Exit(obj);
     }
 }
