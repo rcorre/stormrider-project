@@ -11,12 +11,8 @@ public enum Alignment {
 public class Battler : MonoBehaviour {
     public Character character { get; private set; }
     public Alignment alignment { get; private set; }
-    public int hp { get; private set; }
-    public int stamina { get; private set; }
     public Tile tile { get; private set; }
     public bool hasMoveAction { get; set; }
-
-    private List<Condition> _conditions = new List<Condition>();
 
     /// <summary>
     /// cost to move onto the given tile

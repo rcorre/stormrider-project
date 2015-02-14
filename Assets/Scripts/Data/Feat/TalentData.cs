@@ -12,6 +12,14 @@ public enum TalentType {
     Reaction
 }
 
+public enum TalentEffect {
+    Damage,
+    Heal,
+    DamageStamina,
+    RestoreStamina,
+    Condition,
+}
+
 public enum ActionType {
     Major,
     Minor,
@@ -30,12 +38,16 @@ public class TalentData {
     public readonly string key;
     /// <summary> name shown in ui </summary>
     public readonly string name;
+    /// <summary> the category of talent -- determines what slot it can be placed in </summary>
+    public readonly TalentType type; 
     /// <summary> how talent may be used in combat </summary>
-    public readonly TechniqueType type; 
+    public readonly TechniqueType technique; 
     /// <summary> type of action consumed </summary>
     public readonly ActionType action; 
     /// <summary> attribute required to equip </summary>
     public readonly CharacterAttribute attribute;
+    /// <summary> status condition afflicted </summary>
+    public readonly ConditionType condition;
     /// <summary> number of attribute points required to equip </summary>
     public readonly int apCost;
     /// <summary> number of turns before talent can be used again after use </summary>
@@ -48,6 +60,6 @@ public class TalentData {
     /// <summary> multiplied by the effective power to determine effect potency </summary>
     public readonly float power;
     /// <summary> multiplied by the effective power to determine effect potency </summary>
-    public readonly EffectType effect;
+    public readonly TalentEffect effect;
     #endregion
 }

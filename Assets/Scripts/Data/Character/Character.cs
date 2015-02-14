@@ -64,6 +64,8 @@ public class Character {
     #region dynamic values
     public int health { get; private set; }
     public int stamina { get; private set; }
+
+    public ConditionSet conditions { get; private set; }
     #endregion
 
     #region calculated stats
