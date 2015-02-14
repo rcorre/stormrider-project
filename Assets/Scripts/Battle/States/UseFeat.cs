@@ -14,7 +14,11 @@ public class UseFeat : State<Battle> {
 
     public override void Start(Battle battle) {
         var gui = GameObject.FindObjectOfType<BattleGUI>();
-        gui.SpawnText("Testing", BattleGUI.TextType.Damage, _target.transform.position);
+        var map = GameObject.FindObjectOfType<TileMap>();
+        var pos = map.mesh.TileSurfaceCenter(_target);
+
+        int damage = BattleCalc.FeatDamage(_feat, _battler, _target.battler);
+        gui.SpawnText(damage, BattleGUI.TextType.Damage, pos);
     }
 
     public override void Update(Battle battle) {
