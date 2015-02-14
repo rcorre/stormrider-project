@@ -13,17 +13,19 @@ public class UseFeat : State<Battle> {
     }
 
     public override void Start(Battle battle) {
-        var gui = GameObject.FindObjectOfType<BattleGUI>();
-        var map = GameObject.FindObjectOfType<TileMap>();
-        var pos = map.mesh.TileSurfaceCenter(_target);
+	// this is a transient state, pop it right off the stack
+	battle.states.Pop();
 
-        int damage = BattleCalc.FeatDamage(_feat, _battler, _target.battler);
-        gui.SpawnText(damage, BattleGUI.TextType.Damage, pos);
-    }
+	// compute effects
+        var effects = BattleCalc.CalculateEffects(_feat, _battler, _target.battler);
+	var targetBattler = _target.battler;
+	if (targetBattler == null) {
+	    Debug.LogError("cannot handle feat used on empty tile yet");
+	}
 
-    public override void Update(Battle battle) {
-    }
-
-    public override void Exit(Battle obj) {
+	// push a state to apply each effect
+	foreach(var effect in effects) {
+	    battle.states.Push(new ApplyFeatEffect(targetBattler, effect));
+	}
     }
 }

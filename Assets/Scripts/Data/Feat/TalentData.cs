@@ -17,7 +17,7 @@ public enum TalentEffect {
     Heal,
     DamageStamina,
     RestoreStamina,
-    Condition,
+    ApplyCondition,
 }
 
 public enum ActionType {
@@ -39,11 +39,11 @@ public class TalentData {
     /// <summary> name shown in ui </summary>
     public readonly string name;
     /// <summary> the category of talent -- determines what slot it can be placed in </summary>
-    public readonly TalentType type; 
+    public readonly TalentType talentType; 
     /// <summary> how talent may be used in combat </summary>
-    public readonly TechniqueType technique; 
+    public readonly TechniqueType techniqueType; 
     /// <summary> type of action consumed </summary>
-    public readonly ActionType action; 
+    public readonly ActionType actionType; 
     /// <summary> attribute required to equip </summary>
     public readonly CharacterAttribute attribute;
     /// <summary> status condition afflicted </summary>

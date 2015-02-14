@@ -33,4 +33,20 @@ public class BattleGUI : MonoBehaviour {
     public void SpawnText(int value, TextType type, Vector3 worldPosition) {
         SpawnText(value.ToString(), type, worldPosition);
     }
+
+    public void SpawnText(EffectResult result, Vector3 worldPosition) {
+        TextType textType = TextType.Damage;
+        switch (result.effect) {
+            case TalentEffect.Damage:
+            case TalentEffect.DamageStamina:
+            case TalentEffect.ApplyCondition:
+                textType = TextType.Damage;
+                break;
+            case TalentEffect.Heal:
+            case TalentEffect.RestoreStamina:
+                textType = TextType.Healing;
+                break;
+        }
+        SpawnText(result.ToString(), textType, worldPosition);
+    }
 }
