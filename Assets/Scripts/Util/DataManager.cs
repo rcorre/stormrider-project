@@ -14,8 +14,8 @@ public class DataManager : MonoBehaviour {
         _store = new Dictionary<Type, Dictionary<string, object>>();
 	// order matters, cannot load characters before talents or equipment
         Load<Race>("race", x => x.key);
-        Load<TechniqueData>("talents/technique", x => x.key);
-        Load<EffectData>("talents/effect", x => x.key);
+        Load<TalentData>("talents/technique", x => x.key);
+        Load<TalentData>("talents/effect", x => x.key);
         Load<EquipmentMaterial>("materials", x => x.key);
         Load<WeaponDesign>("weapons", x => x.key);
         Load<ArmorDesign>("armor", x => x.key);
@@ -23,7 +23,9 @@ public class DataManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// load and cache data of type T
+    /// load and cache data of type T.
+    /// if some data of type T has already been loaded, merges with existing store.
+    /// duplicate keys for a given type are not allowed.
     /// </summary>
     /// <typeparam name="T">Type to deserialize into</typeparam>
     /// <param name="fileName">name of file under Resources, without extension</param>
@@ -31,7 +33,13 @@ public class DataManager : MonoBehaviour {
     public static void Load<T>(string fileName, Func<T, string> getKey) {
 	var asset = Resources.Load<TextAsset>(fileName);
 	var data = JsonApi.Deserialize<T[]>(asset.text);
-	_store[typeof(T)] = data.ToDictionary(x => getKey(x), x => (object)x);
+	var typeKey = typeof(T);
+    	if (_store.ContainsKey(typeKey)) { // key already exists, add pairs into existing dict
+            data.ToList().ForEach(x => _store[typeKey].Add(getKey(x), (object)x));
+    	}
+    	else { // type not loaded yet. create new dictionary
+            _store[typeKey] = data.ToDictionary(x => getKey(x), x => (object)x);
+    	}
     }
 
     /// <summary>
@@ -41,8 +49,8 @@ public class DataManager : MonoBehaviour {
     /// <param name="fileName">name of file under resources, without extension</param>
     /// <returns></returns>
     public static T LoadOnce<T>(string fileName) {
-	var asset = Resources.Load<TextAsset>(fileName);
-	return JsonApi.Deserialize<T>(asset.text);
+        var asset = Resources.Load<TextAsset>(fileName);
+        return JsonApi.Deserialize<T>(asset.text);
     }
 
     /// <summary>
