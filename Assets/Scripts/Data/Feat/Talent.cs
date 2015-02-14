@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using FullSerializer;
 
-
+[fsObject(Converter = typeof(TalentConverter))]
 public struct Talent {
     public Talent(int rank, TalentData data) {
         this.rank = rank;
@@ -21,7 +21,6 @@ public class TalentConverter : fsConverter {
         var input = (Talent)instance;
         var output = new Dictionary<string, fsData>() {
 	    { "rank", new fsData(input.rank) },
-	    { "class", new fsData(input.data.GetType().ToString()) },
 	    { "key", new fsData(input.data.key) }
         };
 
@@ -37,10 +36,10 @@ public class TalentConverter : fsConverter {
 
         var input = storage.AsDictionary;
 
-        var rank = (int) input["rank"].AsInt64;
-        var key = input["key"].AsString;
-        var type = Type.GetType(input["class"].AsString);
-        var data = (TalentData)DataManager.Fetch(type, key);
+        int rank   = (int) input["rank"].AsInt64;
+        string key = input["key"].AsString;
+
+        var data = DataManager.Fetch<TalentData>(key);
 
         instance = new Talent(rank, data);
         return fsFailure.Success;

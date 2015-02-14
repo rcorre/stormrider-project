@@ -29,9 +29,17 @@
 		"feats": [
 			{
 				"name": "Slash",
-				"talents": [
-					{ "class": "Technique", "key": "strike", "rank": 2},
-					{ "class": "Effect", "key": "wound", "rank": 1}
+				"technique": { 
+					"class": "Technique", 
+					"key": "strike", 
+					"rank": 2
+				},
+				"effects": [
+					{ 
+						"class": "Effect", 
+						"key": "wound", 
+						"rank": 1
+					}
 				]
 			}
 		],

@@ -1,25 +1,37 @@
 ﻿using FullSerializer;
 using System.Collections.Generic;
 
+public enum TalentType {
+    /// <summary> an action like strike, kick, shoot, cast </summary>
+    Technique,
+    /// <summary> determines element -- for magic feats only </summary>
+    Affinity,
+    /// <summary> damage, status effect, healing, buff, ect. </summary>
+    Effect,
+    /// <summary> a condition that will cause this feat to trigger automatically </summary>
+    Reaction
+}
+
 public enum ActionType {
     Major,
     Minor,
     Move
 }
 
-public enum TalentType {
+public enum TechniqueType {
     Melee,
     Ranged,
     Magic
 }
 
-public abstract class TalentData {
+public class TalentData {
+    #region General
     /// <summary> unique id, unchanged even if name changes </summary>
     public readonly string key;
     /// <summary> name shown in ui </summary>
     public readonly string name;
     /// <summary> how talent may be used in combat </summary>
-    public readonly TalentType type; 
+    public readonly TechniqueType type; 
     /// <summary> type of action consumed </summary>
     public readonly ActionType action; 
     /// <summary> attribute required to equip </summary>
@@ -30,4 +42,12 @@ public abstract class TalentData {
     public readonly int cooldown;
     /// <summary> stamina consumed on use </summary>
     public readonly int stamina;
+    #endregion
+
+    #region Effect Talents
+    /// <summary> multiplied by the effective power to determine effect potency </summary>
+    public readonly float power;
+    /// <summary> multiplied by the effective power to determine effect potency </summary>
+    public readonly EffectType effect;
+    #endregion
 }
