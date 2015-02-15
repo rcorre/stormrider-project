@@ -1,45 +1,13 @@
 [
 	{
-		"key"       : "strike",
-		"name"      : "Strike",
-		"action"    : "Major",
-		"type"      : "Melee",
-		"attribute" : "Str",
-		"apCost"    : 1,
-		"cooldown"  : 0,
-		"stamina"   : 0
-	},
-
-	{
-		"key"       : "leap",
-		"name"      : "Leap",
-		"action"    : "Major",
-		"type"      : "Melee",
-		"attribute" : "Str",
-		"apCost"    : 2,
-		"cooldown"  : 4,
-		"stamina"   : 8
-	},
-
-	{
-		"key"       : "breath",
-		"name"      : "Breath",
-		"action"    : "Major",
-		"type"      : "Magic",
-		"attribute" : "Int",
-		"apCost"    : 2,
-		"cooldown"  : 4,
-		"stamina"   : 4
-	},
-
-	{
-		"key"       : "wave",
-		"name"      : "Wave",
-		"action"    : "Major",
-		"type"      : "Magic",
-		"attribute" : "Int",
-		"apCost"    : 2,
-		"cooldown"  : 6,
-		"stamina"   : 6
+		"key"           : "strike",
+		"name"          : "Strike",
+		"talentType"    : "Technique",
+		"techniqueType" : "Melee",
+		"attribute"     : "Str",
+		"apCost"        : 1,
+		"cooldown"      : 0,
+		"stamina"       : 0,
+		"power"         : 1.0
 	}
 ]

@@ -1,23 +1,28 @@
 [
 	{
-		"key"       : "wound",
-		"name"      : "Wound",
-		"type"      : "Melee",
-		"attribute" : "Dex",
-		"apCost"    : 2,
-		"cooldown"  : 0,
-		"stamina"   : 4,
-		"effect"    : "Bleed"
+		"key"           : "wound",
+		"name"          : "Wound",
+		"talentType"    : "Effect",
+		"techniqueType" : "Melee",
+		"attribute"     : "Dex",
+		"condition"     : "Bleed",
+		"apCost"        : 2,
+		"cooldown"      : 0,
+		"stamina"       : 4,
+		"power"         : 1.0,
+		"effect"        : "ApplyCondition"
 	},
-
 	{
-		"key"       : "combust",
-		"name"      : "Combust",
-		"type"      : "Magic",
-		"attribute" : "Int",
-		"apCost"    : 2,
-		"cooldown"  : 0,
-		"stamina"   : 4,
-		"effect"    : "Burn"
+		"key"           : "burn",
+		"name"          : "Burn",
+		"talentType"    : "Effect",
+		"techniqueType" : "Magic",
+		"attribute"     : "Int",
+		"condition"     : "Burn",
+		"apCost"        : 2,
+		"cooldown"      : 0,
+		"stamina"       : 4,
+		"power"         : 1.0,
+		"effect"        : "ApplyCondition"
 	}
 ]

@@ -30,13 +30,11 @@
 			{
 				"name": "Slash",
 				"technique": { 
-					"class": "Technique", 
 					"key": "strike", 
 					"rank": 2
 				},
 				"effects": [
 					{ 
-						"class": "Effect", 
 						"key": "wound", 
 						"rank": 1
 					}
