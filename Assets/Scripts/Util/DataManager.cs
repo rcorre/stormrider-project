@@ -4,13 +4,13 @@ using System.Linq;
 using System.Collections.Generic;
 using FullSerializer;
 
-public class DataManager : MonoBehaviour {
+public static class DataManager {
     /// <summary>
     /// objects of type T are accessed as _store[T][key]
     /// </summary>
     private static Dictionary<Type, Dictionary<string, object>> _store;
 
-    void Awake() {
+    static DataManager() {
         _store = new Dictionary<Type, Dictionary<string, object>>();
 	// order matters, cannot load characters before talents or equipment
         Load<Race>("race", x => x.key);
