@@ -5,12 +5,11 @@ public class FeatSelector : MonoBehaviour {
     public delegate void Selector(Feat feat);
 
     private Feat[] _feats;
-    private Vector3 _worldPos;
     private Selector _onSelect;
     private bool _shown;
 
     public void Show(Vector3 worldPos, Feat[] feats, Selector onSelect) {
-        _worldPos = worldPos;
+        //_worldPos = worldPos; TODO: position in world relative to target
         _feats = feats;
         _onSelect = onSelect;
         _shown = true;

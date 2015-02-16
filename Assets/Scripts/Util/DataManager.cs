@@ -60,7 +60,6 @@ public static class DataManager {
     /// <param name="key">key of data within store</param>
     /// <returns>cached data matching key and type</returns>
     public static T Fetch<T>(string key) {
-        Type type = typeof(T);
         return (T)Fetch(typeof(T), key);
     }
 
