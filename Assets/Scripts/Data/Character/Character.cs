@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using FullSerializer;
 
@@ -65,7 +66,7 @@ public class Character {
     public int health { get; private set; }
     public int stamina { get; private set; }
 
-    public ConditionSet conditions { get; private set; }
+    public List<Condition> conditions { get; private set; }
     #endregion
 
     #region calculated stats

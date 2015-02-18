@@ -1,9 +1,12 @@
 ﻿public enum ConditionType {
-    Bleed,
-    Burn,
-    Poison,
-    Blind,
-    Slow,
+    AdjustAttribute,
+    AdjustArmor,
+    // TODO: more here
 }
 
-public class ConditionSet : Enumap<ConditionType, int> { }
+public struct Condition {
+    ConditionType type;
+    Element element;
+    CharacterAttribute attribute;
+    int amount;
+}
